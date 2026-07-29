@@ -64,6 +64,20 @@ def update_stations_list():
         stations_options.remove(cell)
   return stations_options
 
+st.write('''
+Bienvenue sur Naodoku, le "sudoku" Naolib !
+
+Comment ça marche ?
+- Le but du jeu est de remplir les 9 cases de la grille avec des arrêts de Tramway et/ou Busway du réseau Naolib tout en respectant les critères de la ligne et de la colonne.
+- Une fois la grille remplie, le bouton "Vérifier la grille" vous indiquera si celle-ci est correcte ou si elle contient des erreurs.
+- Si une catégorie n'est pas claire, une petite bulle d'aide permet d'afficher une explication.
+- Il est possible d'entrer plusieurs fois le même arrêt (pour l'instant), mais évitez pour complexifier le jeu
+
+Bon jeu !
+
+PS : Le projet est encore très bancal et le dev du jeu n'étant pas dev de métier merci d'être indulgent :) 
+''')
+
 with st.form("Nouvelle partie de NAODOKU !"):
   st.write("Nouvelle partie de NAODOKU !")
 
