@@ -73,10 +73,13 @@ Comment ça marche ?
 - Si une catégorie n'est pas claire, une petite bulle d'aide permet d'afficher une explication.
 - Il est possible d'entrer plusieurs fois le même arrêt (pour l'instant), mais évitez pour complexifier le jeu
 
+Concept calqué sur métrodoku (metrodoku.fr) en version Nantaise.
+
 Bon jeu !
 
 PS : Le projet est encore très bancal et le dev du jeu n'étant pas dev de métier merci d'être indulgent :) 
 ''')
+st.link_button(label="Lien Métrodoku", url="metrodoku.fr")
 
 with st.form("Nouvelle partie de NAODOKU !"):
   st.write("Nouvelle partie de NAODOKU !")
