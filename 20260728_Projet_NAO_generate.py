@@ -4,10 +4,7 @@ from itertools import combinations, permutations
 
 
 
-truth_table = pd.read_csv("H:\\Perso\\Naolib\\20260728_Projet_NAO_table_verite.csv", sep=";", encoding="latin-1")
-pairs = pd.read_csv("H:\\Perso\\Naolib\\20260728_Projet_NAO_paires.csv", sep=";", encoding="latin-1")
-
-stations_names = truth_table["Nom arret"].tolist()
+pairs = pd.read_csv("20260728_Projet_NAO_paires.csv", sep=";", encoding="latin-1")
 criteria_names = np.unique(pairs["Paire 1"].tolist())
 
 all_criteria_comb = [comb for comb in combinations(criteria_names, 6)]
@@ -73,5 +70,5 @@ for (i, combination) in enumerate(all_criteria_comb):
 
 print(len(result))
 pass
-result.to_csv("H:\\Perso\\Naolib\\20260728_Projet_NAO_results.csv", sep=";", encoding='utf-8')
+result.to_csv("20260728_Projet_NAO_results.csv", sep=";", encoding='utf-8')
 
