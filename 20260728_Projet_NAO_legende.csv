@@ -1,33 +1,33 @@
 Nom critere;Description
-Tram 1;Arret situe sur la ligne de tramway 1
-Tram 2;Arret situe sur la ligne de tramway 2 
-Tram 3;Arret situe sur la ligne de tramway 3
-Bus 4;Arret situe sur la ligne de busway 4
-Bus 5;Arret situe sur la ligne de busway 5
-Chronobus;Arret offrant une correspondance avec une ligne de Chronobus (ex. C2 / C20...)
-Inter-lignes tram/busway;Arret situe sur au moins 1 ligne de tramway ou busway (tous pour l'instant :))
-Nom <7 lettres;Arret dont le nom complet comporte 7 caractères ou moins (espaces et tirets exclus / chiffres inclus)
-Nom <10 lettres;Arret dont le nom complet comporte 10 caractères ou moins (espaces et tirets exclus / chiffres inclus)
-1 seul mot;Arret dont le nom ne comporte qu'un seul mot
-3 mots ou plus;Arret dont le nom comporte 3 mots ou plus
-Lettre doublee;Arret dont le nom comporte au moins 2 lettres consécutives identiques (ex. les 2 M de Commerce)
-Dans Nantes;Arret situe sur la commune de Nantes
-Autre commune;Arret situe sur une commune de la métropole autre que Nantes
-Nord Loire;Arret situe au Nord de la Loire (Ile de Nantes exclue)
-Sud Loire;Arret situe au Sud de la Loire (Ile de Nantes exclue)
-Moins de 1km du periph; Arret situe a moins de 1km du peripherique (interieur ou exterieur)
-Moins de 2 km du periph;Arret situe a moins de 2km du peripherique (interieur ou exterieur)
-Moins de 500m eau;Arret situe a moins de 500m d'un cours d'eau (Loire / Erdre / Sevre Nantaise)
-Moins de 1 km eau;Arret situe a moins de 1km d'un cours d'eau (Loire / Erdre / Sevre Nantaise)
-Moins de 1 km du chateau;Arret situe a moins de 1km du Chateau des Ducs 
-Moins de 2 km du chateau;Arret situe a moins de 2km du Chateau des Ducs 
-Moins de 1 km de la Tour Bretagne;Arret situe a moins de 1km de la Tour Bretagne
-Moins de 2 km de la Tour Bretagne;Arret situe a moins de 2km de la Tour Bretagne
-Moins de 1 km hippodrome;Arret situe a moins de 1km de l'hippodrome (mesure depuis son centre)
-Moins de 2 km hippodrome;Arret situe a moins de 2km de l'hippodrome (mesure depuis son centre)
-Moins de 1 km des machines;Arret situe a moins de 1km des nefs de la Compagnie des Machines
-Moins de 2 km des machines;Arret situe a moins de 2km des nefs de la Compagnie des Machines
-Moins de 1 km du stade de la Beaujoire;Arret situe a moins de 1km du Stade de la Beaujoire
-Moins de 2 km du stade de la Beaujoire;Arret situe a moins de 2km du Stade de la Beaujoire
-Moins de 1 km du parc de proce;Arret situe a moins de 1km du Parc de Proce (mesure depuis son centre)
-Moins de 2 km du parc de proce;Arret situe a moins de 2km du Parc de Proce (mesure depuis son centre)
+Tram 1;Arrêt situé sur la ligne de tramway 1
+Tram 2;Arrêt situé sur la ligne de tramway 2 
+Tram 3;Arrêt situé sur la ligne de tramway 3
+Bus 4;Arrêt situé sur la ligne de busway 4
+Bus 5;Arrêt situé sur la ligne de busway 5
+Chronobus;Arrêt offrant une correspondance avec une ligne de Chronobus (ex. C2 / C20...)
+Inter-lignes tram/busway;Arrêt situé sur au moins 1 ligne de tramway ou busway (tous pour l'instant :))
+Nom <7 lettres;Arrêt dont le nom complet comporte 7 caractères ou moins (espaces et tirets exclus / chiffres inclus)
+Nom <10 lettres;Arrêt dont le nom complet comporte 10 caractères ou moins (espaces et tirets exclus / chiffres inclus)
+1 seul mot;Arrêt dont le nom ne comporte qu'un seul mot
+3 mots ou plus;Arrêt dont le nom comporte 3 mots ou plus
+Lettre doublee;Arrêt dont le nom comporte au moins 2 lettres consécutives identiques (ex. les 2 M de Commerce)
+Dans Nantes;Arrêt situé sur la commune de Nantes
+Autre commune;Arrêt situé sur une commune de la métropole autre que Nantes
+Nord Loire;Arrêt situé au Nord de la Loire (Île de Nantes exclue)
+Sud Loire;Arrêt situé au Sud de la Loire (Île de Nantes exclue)
+Moins de 1km du periph;Arrêt situé à moins de 1km du périphérique (intérieur ou extérieur)
+Moins de 2 km du periph;Arrêt situé à moins de 2km du périphérique (intérieur ou extérieur)
+Moins de 500m eau;Arrêt situé à moins de 500m d'un cours d'eau (Loire / Erdre / Sèvre Nantaise)
+Moins de 1 km eau;Arrêt situé à moins de 1km d'un cours d'eau (Loire / Erdre / Sèvre Nantaise)
+Moins de 1 km du chateau;Arrêt situé à moins de 1km du Château des Ducs 
+Moins de 2 km du chateau;Arrêt situé à moins de 2km du Château des Ducs 
+Moins de 1 km de la Tour Bretagne;Arrêt situé à moins de 1km de la Tour Bretagne
+Moins de 2 km de la Tour Bretagne;Arrêt situé à moins de 2km de la Tour Bretagne
+Moins de 1 km hippodrome;Arrêt situé à moins de 1km de l'hippodrome (mesuré depuis son centre)
+Moins de 2 km hippodrome;Arrêt situé à moins de 2km de l'hippodrome (mesuré depuis son centre)
+Moins de 1 km des machines;Arrêt situé à moins de 1km des nefs de la Compagnie des Machines
+Moins de 2 km des machines;Arrêt situé à moins de 2km des nefs de la Compagnie des Machines
+Moins de 1 km du stade de la Beaujoire;Arrêt situé à moins de 1km du Stade de la Beaujoire
+Moins de 2 km du stade de la Beaujoire;Arrêt situé à moins de 2km du Stade de la Beaujoire
+Moins de 1 km du parc de Proce;Arrêt situé à moins de 1km du Parc de Procé (mesuré depuis son centre)
+Moins de 2 km du parc de Proce;Arrêt situé à moins de 2km du Parc de Procé (mesuré depuis son centre)
