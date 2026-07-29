@@ -1,0 +1,497 @@
+Paire 1;Paire 2;Nb arrets
+Tram 1;Tram 2;1
+Tram 1;Tram 3;1
+Tram 1;Bus 4;1
+Tram 1;Bus 5;0
+Tram 1;Chronobus;9
+Tram 1;Inter-lignes tram/busway;35
+Tram 1;Nom <7 lettres;5
+Tram 1;Nom <10 lettres;15
+Tram 1;1 seul mot;20
+Tram 1;3 mots ou plus;5
+Tram 1;Lettre doublee;12
+Tram 1;Dans Nantes;28
+Tram 1;Autre commune;7
+Tram 1;Nord Loire;35
+Tram 1;Sud Loire;0
+Tram 1;Moins de 1km du periph;12
+Tram 1;Moins de 2 km du periph;21
+Tram 1;Moins de 500m eau;3
+Tram 1;Moins de 1 km eau;11
+Tram 1;Moins de 1 km du chateau;5
+Tram 1;Moins de 2 km du chateau;9
+Tram 1;Moins de 1 km de la Tour Bretagne;4
+Tram 1;Moins de 2 km de la Tour Bretagne;9
+Tram 1;Moins de 1 km hippodrome;0
+Tram 1;Moins de 2 km hippodrome;1
+Tram 1;Moins de 1 km des machines;3
+Tram 1;Moins de 2 km des machines;8
+Tram 1;Moins de 1 km du stade de la Beaujoire;4
+Tram 1;Moins de 2 km du stade de la Beaujoire;6
+Tram 1;Moins de 1 km du parc de proce;0
+Tram 1;Moins de 2 km du parc de proce;5
+Tram 2;Tram 3;6
+Tram 2;Bus 4;0
+Tram 2;Bus 5;1
+Tram 2;Chronobus;9
+Tram 2;Inter-lignes tram/busway;25
+Tram 2;Nom <7 lettres;2
+Tram 2;Nom <10 lettres;10
+Tram 2;1 seul mot;9
+Tram 2;3 mots ou plus;6
+Tram 2;Lettre doublee;9
+Tram 2;Dans Nantes;22
+Tram 2;Autre commune;3
+Tram 2;Nord Loire;20
+Tram 2;Sud Loire;2
+Tram 2;Moins de 1km du periph;9
+Tram 2;Moins de 2 km du periph;11
+Tram 2;Moins de 500m eau;12
+Tram 2;Moins de 1 km eau;14
+Tram 2;Moins de 1 km du chateau;6
+Tram 2;Moins de 2 km du chateau;11
+Tram 2;Moins de 1 km de la Tour Bretagne;5
+Tram 2;Moins de 2 km de la Tour Bretagne;11
+Tram 2;Moins de 1 km hippodrome;6
+Tram 2;Moins de 2 km hippodrome;10
+Tram 2;Moins de 1 km des machines;0
+Tram 2;Moins de 2 km des machines;10
+Tram 2;Moins de 1 km du stade de la Beaujoire;0
+Tram 2;Moins de 2 km du stade de la Beaujoire;0
+Tram 2;Moins de 1 km du parc de proce;0
+Tram 2;Moins de 2 km du parc de proce;0
+Tram 3;Bus 4;0
+Tram 3;Bus 5;1
+Tram 3;Chronobus;7
+Tram 3;Inter-lignes tram/busway;31
+Tram 3;Nom <7 lettres;5
+Tram 3;Nom <10 lettres;14
+Tram 3;1 seul mot;15
+Tram 3;3 mots ou plus;5
+Tram 3;Lettre doublee;6
+Tram 3;Dans Nantes;15
+Tram 3;Autre commune;16
+Tram 3;Nord Loire;18
+Tram 3;Sud Loire;10
+Tram 3;Moins de 1km du periph;4
+Tram 3;Moins de 2 km du periph;9
+Tram 3;Moins de 500m eau;6
+Tram 3;Moins de 1 km eau;12
+Tram 3;Moins de 1 km du chateau;4
+Tram 3;Moins de 2 km du chateau;10
+Tram 3;Moins de 1 km de la Tour Bretagne;6
+Tram 3;Moins de 2 km de la Tour Bretagne;10
+Tram 3;Moins de 1 km hippodrome;0
+Tram 3;Moins de 2 km hippodrome;1
+Tram 3;Moins de 1 km des machines;0
+Tram 3;Moins de 2 km des machines;10
+Tram 3;Moins de 1 km du stade de la Beaujoire;0
+Tram 3;Moins de 2 km du stade de la Beaujoire;0
+Tram 3;Moins de 1 km du parc de proce;1
+Tram 3;Moins de 2 km du parc de proce;10
+Bus 4;Bus 5;1
+Bus 4;Chronobus;2
+Bus 4;Inter-lignes tram/busway;15
+Bus 4;Nom <7 lettres;0
+Bus 4;Nom <10 lettres;4
+Bus 4;1 seul mot;7
+Bus 4;3 mots ou plus;4
+Bus 4;Lettre doublee;3
+Bus 4;Dans Nantes;12
+Bus 4;Autre commune;3
+Bus 4;Nord Loire;3
+Bus 4;Sud Loire;9
+Bus 4;Moins de 1km du periph;2
+Bus 4;Moins de 2 km du periph;6
+Bus 4;Moins de 500m eau;6
+Bus 4;Moins de 1 km eau;13
+Bus 4;Moins de 1 km du chateau;3
+Bus 4;Moins de 2 km du chateau;6
+Bus 4;Moins de 1 km de la Tour Bretagne;2
+Bus 4;Moins de 2 km de la Tour Bretagne;5
+Bus 4;Moins de 1 km hippodrome;0
+Bus 4;Moins de 2 km hippodrome;0
+Bus 4;Moins de 1 km des machines;0
+Bus 4;Moins de 2 km des machines;5
+Bus 4;Moins de 1 km du stade de la Beaujoire;0
+Bus 4;Moins de 2 km du stade de la Beaujoire;0
+Bus 4;Moins de 1 km du parc de proce;0
+Bus 4;Moins de 2 km du parc de proce;0
+Bus 5;Chronobus;3
+Bus 5;Inter-lignes tram/busway;15
+Bus 5;Nom <7 lettres;2
+Bus 5;Nom <10 lettres;7
+Bus 5;1 seul mot;8
+Bus 5;3 mots ou plus;5
+Bus 5;Lettre doublee;1
+Bus 5;Dans Nantes;15
+Bus 5;Autre commune;0
+Bus 5;Nord Loire;2
+Bus 5;Sud Loire;0
+Bus 5;Moins de 1km du periph;0
+Bus 5;Moins de 2 km du periph;0
+Bus 5;Moins de 500m eau;13
+Bus 5;Moins de 1 km eau;15
+Bus 5;Moins de 1 km du chateau;2
+Bus 5;Moins de 2 km du chateau;13
+Bus 5;Moins de 1 km de la Tour Bretagne;0
+Bus 5;Moins de 2 km de la Tour Bretagne;11
+Bus 5;Moins de 1 km hippodrome;0
+Bus 5;Moins de 2 km hippodrome;0
+Bus 5;Moins de 1 km des machines;6
+Bus 5;Moins de 2 km des machines;9
+Bus 5;Moins de 1 km du stade de la Beaujoire;0
+Bus 5;Moins de 2 km du stade de la Beaujoire;0
+Bus 5;Moins de 1 km du parc de proce;0
+Bus 5;Moins de 2 km du parc de proce;0
+Chronobus;Inter-lignes tram/busway;26
+Chronobus;Nom <7 lettres;4
+Chronobus;Nom <10 lettres;12
+Chronobus;1 seul mot;9
+Chronobus;3 mots ou plus;7
+Chronobus;Lettre doublee;7
+Chronobus;Dans Nantes;20
+Chronobus;Autre commune;6
+Chronobus;Nord Loire;22
+Chronobus;Sud Loire;3
+Chronobus;Moins de 1km du periph;9
+Chronobus;Moins de 2 km du periph;12
+Chronobus;Moins de 500m eau;9
+Chronobus;Moins de 1 km eau;12
+Chronobus;Moins de 1 km du chateau;7
+Chronobus;Moins de 2 km du chateau;8
+Chronobus;Moins de 1 km de la Tour Bretagne;5
+Chronobus;Moins de 2 km de la Tour Bretagne;8
+Chronobus;Moins de 1 km hippodrome;1
+Chronobus;Moins de 2 km hippodrome;2
+Chronobus;Moins de 1 km des machines;1
+Chronobus;Moins de 2 km des machines;8
+Chronobus;Moins de 1 km du stade de la Beaujoire;1
+Chronobus;Moins de 2 km du stade de la Beaujoire;1
+Chronobus;Moins de 1 km du parc de proce;0
+Chronobus;Moins de 2 km du parc de proce;2
+Inter-lignes tram/busway;Nom <7 lettres;12
+Inter-lignes tram/busway;Nom <10 lettres;45
+Inter-lignes tram/busway;1 seul mot;54
+Inter-lignes tram/busway;3 mots ou plus;23
+Inter-lignes tram/busway;Lettre doublee;27
+Inter-lignes tram/busway;Dans Nantes;82
+Inter-lignes tram/busway;Autre commune;29
+Inter-lignes tram/busway;Nord Loire;74
+Inter-lignes tram/busway;Sud Loire;20
+Inter-lignes tram/busway;Moins de 1km du periph;27
+Inter-lignes tram/busway;Moins de 2 km du periph;47
+Inter-lignes tram/busway;Moins de 500m eau;33
+Inter-lignes tram/busway;Moins de 1 km eau;55
+Inter-lignes tram/busway;Moins de 1 km du chateau;16
+Inter-lignes tram/busway;Moins de 2 km du chateau;40
+Inter-lignes tram/busway;Moins de 1 km de la Tour Bretagne;13
+Inter-lignes tram/busway;Moins de 2 km de la Tour Bretagne;38
+Inter-lignes tram/busway;Moins de 1 km hippodrome;6
+Inter-lignes tram/busway;Moins de 2 km hippodrome;12
+Inter-lignes tram/busway;Moins de 1 km des machines;9
+Inter-lignes tram/busway;Moins de 2 km des machines;32
+Inter-lignes tram/busway;Moins de 1 km du stade de la Beaujoire;4
+Inter-lignes tram/busway;Moins de 2 km du stade de la Beaujoire;6
+Inter-lignes tram/busway;Moins de 1 km du parc de proce;1
+Inter-lignes tram/busway;Moins de 2 km du parc de proce;15
+Nom <7 lettres;Nom <10 lettres;12
+Nom <7 lettres;1 seul mot;10
+Nom <7 lettres;3 mots ou plus;0
+Nom <7 lettres;Lettre doublee;0
+Nom <7 lettres;Dans Nantes;8
+Nom <7 lettres;Autre commune;4
+Nom <7 lettres;Nord Loire;8
+Nom <7 lettres;Sud Loire;2
+Nom <7 lettres;Moins de 1km du periph;3
+Nom <7 lettres;Moins de 2 km du periph;6
+Nom <7 lettres;Moins de 500m eau;3
+Nom <7 lettres;Moins de 1 km eau;6
+Nom <7 lettres;Moins de 1 km du chateau;1
+Nom <7 lettres;Moins de 2 km du chateau;4
+Nom <7 lettres;Moins de 1 km de la Tour Bretagne;1
+Nom <7 lettres;Moins de 2 km de la Tour Bretagne;3
+Nom <7 lettres;Moins de 1 km hippodrome;0
+Nom <7 lettres;Moins de 2 km hippodrome;0
+Nom <7 lettres;Moins de 1 km des machines;1
+Nom <7 lettres;Moins de 2 km des machines;3
+Nom <7 lettres;Moins de 1 km du stade de la Beaujoire;1
+Nom <7 lettres;Moins de 2 km du stade de la Beaujoire;2
+Nom <7 lettres;Moins de 1 km du parc de proce;0
+Nom <7 lettres;Moins de 2 km du parc de proce;1
+Nom <10 lettres;1 seul mot;38
+Nom <10 lettres;3 mots ou plus;0
+Nom <10 lettres;Lettre doublee;4
+Nom <10 lettres;Dans Nantes;33
+Nom <10 lettres;Autre commune;12
+Nom <10 lettres;Nord Loire;30
+Nom <10 lettres;Sud Loire;7
+Nom <10 lettres;Moins de 1km du periph;11
+Nom <10 lettres;Moins de 2 km du periph;19
+Nom <10 lettres;Moins de 500m eau;14
+Nom <10 lettres;Moins de 1 km eau;21
+Nom <10 lettres;Moins de 1 km du chateau;8
+Nom <10 lettres;Moins de 2 km du chateau;18
+Nom <10 lettres;Moins de 1 km de la Tour Bretagne;7
+Nom <10 lettres;Moins de 2 km de la Tour Bretagne;13
+Nom <10 lettres;Moins de 1 km hippodrome;2
+Nom <10 lettres;Moins de 2 km hippodrome;4
+Nom <10 lettres;Moins de 1 km des machines;1
+Nom <10 lettres;Moins de 2 km des machines;11
+Nom <10 lettres;Moins de 1 km du stade de la Beaujoire;3
+Nom <10 lettres;Moins de 2 km du stade de la Beaujoire;5
+Nom <10 lettres;Moins de 1 km du parc de proce;0
+Nom <10 lettres;Moins de 2 km du parc de proce;5
+1 seul mot;3 mots ou plus;0
+1 seul mot;Lettre doublee;9
+1 seul mot;Dans Nantes;41
+1 seul mot;Autre commune;13
+1 seul mot;Nord Loire;34
+1 seul mot;Sud Loire;9
+1 seul mot;Moins de 1km du periph;12
+1 seul mot;Moins de 2 km du periph;24
+1 seul mot;Moins de 500m eau;16
+1 seul mot;Moins de 1 km eau;27
+1 seul mot;Moins de 1 km du chateau;6
+1 seul mot;Moins de 2 km du chateau;22
+1 seul mot;Moins de 1 km de la Tour Bretagne;7
+1 seul mot;Moins de 2 km de la Tour Bretagne;17
+1 seul mot;Moins de 1 km hippodrome;3
+1 seul mot;Moins de 2 km hippodrome;5
+1 seul mot;Moins de 1 km des machines;3
+1 seul mot;Moins de 2 km des machines;13
+1 seul mot;Moins de 1 km du stade de la Beaujoire;3
+1 seul mot;Moins de 2 km du stade de la Beaujoire;4
+1 seul mot;Moins de 1 km du parc de proce;0
+1 seul mot;Moins de 2 km du parc de proce;7
+3 mots ou plus;Lettre doublee;8
+3 mots ou plus;Dans Nantes;17
+3 mots ou plus;Autre commune;6
+3 mots ou plus;Nord Loire;14
+3 mots ou plus;Sud Loire;4
+3 mots ou plus;Moins de 1km du periph;5
+3 mots ou plus;Moins de 2 km du periph;7
+3 mots ou plus;Moins de 500m eau;9
+3 mots ou plus;Moins de 1 km eau;12
+3 mots ou plus;Moins de 1 km du chateau;4
+3 mots ou plus;Moins de 2 km du chateau;7
+3 mots ou plus;Moins de 1 km de la Tour Bretagne;2
+3 mots ou plus;Moins de 2 km de la Tour Bretagne;9
+3 mots ou plus;Moins de 1 km hippodrome;2
+3 mots ou plus;Moins de 2 km hippodrome;4
+3 mots ou plus;Moins de 1 km des machines;4
+3 mots ou plus;Moins de 2 km des machines;10
+3 mots ou plus;Moins de 1 km du stade de la Beaujoire;0
+3 mots ou plus;Moins de 2 km du stade de la Beaujoire;0
+3 mots ou plus;Moins de 1 km du parc de proce;1
+3 mots ou plus;Moins de 2 km du parc de proce;2
+Lettre doublee;Dans Nantes;22
+Lettre doublee;Autre commune;5
+Lettre doublee;Nord Loire;21
+Lettre doublee;Sud Loire;4
+Lettre doublee;Moins de 1km du periph;8
+Lettre doublee;Moins de 2 km du periph;13
+Lettre doublee;Moins de 500m eau;5
+Lettre doublee;Moins de 1 km eau;13
+Lettre doublee;Moins de 1 km du chateau;3
+Lettre doublee;Moins de 2 km du chateau;7
+Lettre doublee;Moins de 1 km de la Tour Bretagne;3
+Lettre doublee;Moins de 2 km de la Tour Bretagne;8
+Lettre doublee;Moins de 1 km hippodrome;4
+Lettre doublee;Moins de 2 km hippodrome;4
+Lettre doublee;Moins de 1 km des machines;1
+Lettre doublee;Moins de 2 km des machines;8
+Lettre doublee;Moins de 1 km du stade de la Beaujoire;1
+Lettre doublee;Moins de 2 km du stade de la Beaujoire;1
+Lettre doublee;Moins de 1 km du parc de proce;1
+Lettre doublee;Moins de 2 km du parc de proce;3
+Dans Nantes;Autre commune;0
+Dans Nantes;Nord Loire;58
+Dans Nantes;Sud Loire;7
+Dans Nantes;Moins de 1km du periph;13
+Dans Nantes;Moins de 2 km du periph;26
+Dans Nantes;Moins de 500m eau;31
+Dans Nantes;Moins de 1 km eau;50
+Dans Nantes;Moins de 1 km du chateau;16
+Dans Nantes;Moins de 2 km du chateau;40
+Dans Nantes;Moins de 1 km de la Tour Bretagne;13
+Dans Nantes;Moins de 2 km de la Tour Bretagne;38
+Dans Nantes;Moins de 1 km hippodrome;6
+Dans Nantes;Moins de 2 km hippodrome;11
+Dans Nantes;Moins de 1 km des machines;9
+Dans Nantes;Moins de 2 km des machines;30
+Dans Nantes;Moins de 1 km du stade de la Beaujoire;4
+Dans Nantes;Moins de 2 km du stade de la Beaujoire;5
+Dans Nantes;Moins de 1 km du parc de proce;1
+Dans Nantes;Moins de 2 km du parc de proce;14
+Autre commune;Nord Loire;16
+Autre commune;Sud Loire;13
+Autre commune;Moins de 1km du periph;14
+Autre commune;Moins de 2 km du periph;21
+Autre commune;Moins de 500m eau;2
+Autre commune;Moins de 1 km eau;5
+Autre commune;Moins de 1 km du chateau;0
+Autre commune;Moins de 2 km du chateau;0
+Autre commune;Moins de 1 km de la Tour Bretagne;0
+Autre commune;Moins de 2 km de la Tour Bretagne;0
+Autre commune;Moins de 1 km hippodrome;0
+Autre commune;Moins de 2 km hippodrome;1
+Autre commune;Moins de 1 km des machines;0
+Autre commune;Moins de 2 km des machines;2
+Autre commune;Moins de 1 km du stade de la Beaujoire;0
+Autre commune;Moins de 2 km du stade de la Beaujoire;1
+Autre commune;Moins de 1 km du parc de proce;0
+Autre commune;Moins de 2 km du parc de proce;1
+Nord Loire;Sud Loire;0
+Nord Loire;Moins de 1km du periph;23
+Nord Loire;Moins de 2 km du periph;37
+Nord Loire;Moins de 500m eau;12
+Nord Loire;Moins de 1 km eau;27
+Nord Loire;Moins de 1 km du chateau;16
+Nord Loire;Moins de 2 km du chateau;25
+Nord Loire;Moins de 1 km de la Tour Bretagne;13
+Nord Loire;Moins de 2 km de la Tour Bretagne;27
+Nord Loire;Moins de 1 km hippodrome;6
+Nord Loire;Moins de 2 km hippodrome;12
+Nord Loire;Moins de 1 km des machines;3
+Nord Loire;Moins de 2 km des machines;17
+Nord Loire;Moins de 1 km du stade de la Beaujoire;4
+Nord Loire;Moins de 2 km du stade de la Beaujoire;6
+Nord Loire;Moins de 1 km du parc de proce;1
+Nord Loire;Moins de 2 km du parc de proce;15
+Sud Loire;Moins de 1km du periph;4
+Sud Loire;Moins de 2 km du periph;10
+Sud Loire;Moins de 500m eau;4
+Sud Loire;Moins de 1 km eau;11
+Sud Loire;Moins de 1 km du chateau;0
+Sud Loire;Moins de 2 km du chateau;0
+Sud Loire;Moins de 1 km de la Tour Bretagne;0
+Sud Loire;Moins de 2 km de la Tour Bretagne;0
+Sud Loire;Moins de 1 km hippodrome;0
+Sud Loire;Moins de 2 km hippodrome;0
+Sud Loire;Moins de 1 km des machines;0
+Sud Loire;Moins de 2 km des machines;3
+Sud Loire;Moins de 1 km du stade de la Beaujoire;0
+Sud Loire;Moins de 2 km du stade de la Beaujoire;0
+Sud Loire;Moins de 1 km du parc de proce;0
+Sud Loire;Moins de 2 km du parc de proce;0
+Moins de 1km du periph;Moins de 2 km du periph;27
+Moins de 1km du periph;Moins de 500m eau;0
+Moins de 1km du periph;Moins de 1 km eau;2
+Moins de 1km du periph;Moins de 1 km du chateau;0
+Moins de 1km du periph;Moins de 2 km du chateau;0
+Moins de 1km du periph;Moins de 1 km de la Tour Bretagne;0
+Moins de 1km du periph;Moins de 2 km de la Tour Bretagne;0
+Moins de 1km du periph;Moins de 1 km hippodrome;4
+Moins de 1km du periph;Moins de 2 km hippodrome;7
+Moins de 1km du periph;Moins de 1 km des machines;0
+Moins de 1km du periph;Moins de 2 km des machines;0
+Moins de 1km du periph;Moins de 1 km du stade de la Beaujoire;4
+Moins de 1km du periph;Moins de 2 km du stade de la Beaujoire;6
+Moins de 1km du periph;Moins de 1 km du parc de proce;0
+Moins de 1km du periph;Moins de 2 km du parc de proce;0
+Moins de 2 km du periph;Moins de 500m eau;0
+Moins de 2 km du periph;Moins de 1 km eau;4
+Moins de 2 km du periph;Moins de 1 km du chateau;0
+Moins de 2 km du periph;Moins de 2 km du chateau;0
+Moins de 2 km du periph;Moins de 1 km de la Tour Bretagne;0
+Moins de 2 km du periph;Moins de 2 km de la Tour Bretagne;0
+Moins de 2 km du periph;Moins de 1 km hippodrome;6
+Moins de 2 km du periph;Moins de 2 km hippodrome;9
+Moins de 2 km du periph;Moins de 1 km des machines;0
+Moins de 2 km du periph;Moins de 2 km des machines;0
+Moins de 2 km du periph;Moins de 1 km du stade de la Beaujoire;4
+Moins de 2 km du periph;Moins de 2 km du stade de la Beaujoire;6
+Moins de 2 km du periph;Moins de 1 km du parc de proce;0
+Moins de 2 km du periph;Moins de 2 km du parc de proce;1
+Moins de 500m eau;Moins de 1 km eau;33
+Moins de 500m eau;Moins de 1 km du chateau;7
+Moins de 500m eau;Moins de 2 km du chateau;26
+Moins de 500m eau;Moins de 1 km de la Tour Bretagne;6
+Moins de 500m eau;Moins de 2 km de la Tour Bretagne;23
+Moins de 500m eau;Moins de 1 km hippodrome;0
+Moins de 500m eau;Moins de 2 km hippodrome;1
+Moins de 500m eau;Moins de 1 km des machines;9
+Moins de 500m eau;Moins de 2 km des machines;24
+Moins de 500m eau;Moins de 1 km du stade de la Beaujoire;0
+Moins de 500m eau;Moins de 2 km du stade de la Beaujoire;0
+Moins de 500m eau;Moins de 1 km du parc de proce;0
+Moins de 500m eau;Moins de 2 km du parc de proce;2
+Moins de 1 km eau;Moins de 1 km du chateau;16
+Moins de 1 km eau;Moins de 2 km du chateau;39
+Moins de 1 km eau;Moins de 1 km de la Tour Bretagne;13
+Moins de 1 km eau;Moins de 2 km de la Tour Bretagne;36
+Moins de 1 km eau;Moins de 1 km hippodrome;0
+Moins de 1 km eau;Moins de 2 km hippodrome;2
+Moins de 1 km eau;Moins de 1 km des machines;9
+Moins de 1 km eau;Moins de 2 km des machines;31
+Moins de 1 km eau;Moins de 1 km du stade de la Beaujoire;0
+Moins de 1 km eau;Moins de 2 km du stade de la Beaujoire;0
+Moins de 1 km eau;Moins de 1 km du parc de proce;0
+Moins de 1 km eau;Moins de 2 km du parc de proce;7
+Moins de 1 km du chateau;Moins de 2 km du chateau;16
+Moins de 1 km du chateau;Moins de 1 km de la Tour Bretagne;10
+Moins de 1 km du chateau;Moins de 2 km de la Tour Bretagne;16
+Moins de 1 km du chateau;Moins de 1 km hippodrome;0
+Moins de 1 km du chateau;Moins de 2 km hippodrome;0
+Moins de 1 km du chateau;Moins de 1 km des machines;0
+Moins de 1 km du chateau;Moins de 2 km des machines;11
+Moins de 1 km du chateau;Moins de 1 km du stade de la Beaujoire;0
+Moins de 1 km du chateau;Moins de 2 km du stade de la Beaujoire;0
+Moins de 1 km du chateau;Moins de 1 km du parc de proce;0
+Moins de 1 km du chateau;Moins de 2 km du parc de proce;2
+Moins de 2 km du chateau;Moins de 1 km de la Tour Bretagne;13
+Moins de 2 km du chateau;Moins de 2 km de la Tour Bretagne;34
+Moins de 2 km du chateau;Moins de 1 km hippodrome;0
+Moins de 2 km du chateau;Moins de 2 km hippodrome;1
+Moins de 2 km du chateau;Moins de 1 km des machines;6
+Moins de 2 km du chateau;Moins de 2 km des machines;24
+Moins de 2 km du chateau;Moins de 1 km du stade de la Beaujoire;0
+Moins de 2 km du chateau;Moins de 2 km du stade de la Beaujoire;0
+Moins de 2 km du chateau;Moins de 1 km du parc de proce;0
+Moins de 2 km du chateau;Moins de 2 km du parc de proce;6
+Moins de 1 km de la Tour Bretagne;Moins de 2 km de la Tour Bretagne;13
+Moins de 1 km de la Tour Bretagne;Moins de 1 km hippodrome;0
+Moins de 1 km de la Tour Bretagne;Moins de 2 km hippodrome;0
+Moins de 1 km de la Tour Bretagne;Moins de 1 km des machines;1
+Moins de 1 km de la Tour Bretagne;Moins de 2 km des machines;11
+Moins de 1 km de la Tour Bretagne;Moins de 1 km du stade de la Beaujoire;0
+Moins de 1 km de la Tour Bretagne;Moins de 2 km du stade de la Beaujoire;0
+Moins de 1 km de la Tour Bretagne;Moins de 1 km du parc de proce;0
+Moins de 1 km de la Tour Bretagne;Moins de 2 km du parc de proce;4
+Moins de 2 km de la Tour Bretagne;Moins de 1 km hippodrome;0
+Moins de 2 km de la Tour Bretagne;Moins de 2 km hippodrome;2
+Moins de 2 km de la Tour Bretagne;Moins de 1 km des machines;8
+Moins de 2 km de la Tour Bretagne;Moins de 2 km des machines;25
+Moins de 2 km de la Tour Bretagne;Moins de 1 km du stade de la Beaujoire;0
+Moins de 2 km de la Tour Bretagne;Moins de 2 km du stade de la Beaujoire;0
+Moins de 2 km de la Tour Bretagne;Moins de 1 km du parc de proce;1
+Moins de 2 km de la Tour Bretagne;Moins de 2 km du parc de proce;8
+Moins de 1 km hippodrome;Moins de 2 km hippodrome;6
+Moins de 1 km hippodrome;Moins de 1 km des machines;0
+Moins de 1 km hippodrome;Moins de 2 km des machines;0
+Moins de 1 km hippodrome;Moins de 1 km du stade de la Beaujoire;0
+Moins de 1 km hippodrome;Moins de 2 km du stade de la Beaujoire;0
+Moins de 1 km hippodrome;Moins de 1 km du parc de proce;0
+Moins de 1 km hippodrome;Moins de 2 km du parc de proce;0
+Moins de 2 km hippodrome;Moins de 1 km des machines;0
+Moins de 2 km hippodrome;Moins de 2 km des machines;0
+Moins de 2 km hippodrome;Moins de 1 km du stade de la Beaujoire;0
+Moins de 2 km hippodrome;Moins de 2 km du stade de la Beaujoire;1
+Moins de 2 km hippodrome;Moins de 1 km du parc de proce;0
+Moins de 2 km hippodrome;Moins de 2 km du parc de proce;1
+Moins de 1 km des machines;Moins de 2 km des machines;9
+Moins de 1 km des machines;Moins de 1 km du stade de la Beaujoire;0
+Moins de 1 km des machines;Moins de 2 km du stade de la Beaujoire;0
+Moins de 1 km des machines;Moins de 1 km du parc de proce;0
+Moins de 1 km des machines;Moins de 2 km du parc de proce;2
+Moins de 2 km des machines;Moins de 1 km du stade de la Beaujoire;0
+Moins de 2 km des machines;Moins de 2 km du stade de la Beaujoire;0
+Moins de 2 km des machines;Moins de 1 km du parc de proce;0
+Moins de 2 km des machines;Moins de 2 km du parc de proce;7
+Moins de 1 km du stade de la Beaujoire;Moins de 2 km du stade de la Beaujoire;4
+Moins de 1 km du stade de la Beaujoire;Moins de 1 km du parc de proce;0
+Moins de 1 km du stade de la Beaujoire;Moins de 2 km du parc de proce;0
+Moins de 2 km du stade de la Beaujoire;Moins de 1 km du parc de proce;0
+Moins de 2 km du stade de la Beaujoire;Moins de 2 km du parc de proce;0
+Moins de 1 km du parc de proce;Moins de 2 km du parc de proce;1
