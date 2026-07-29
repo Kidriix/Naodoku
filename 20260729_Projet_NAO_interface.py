@@ -11,8 +11,8 @@ submitted = False
 st.set_page_config(page_title="DEMO", layout="wide")
 
 refresh = False
-grids = pd.read_csv("H:\\Perso\\Naolib\\20260728_Projet_NAO_results.csv", sep=";", encoding='utf-8')
-truth_table = pd.read_csv("H:\\Perso\\Naolib\\20260728_Projet_NAO_table_verite.csv", sep=";", encoding='latin-1')
+grids = pd.read_csv("20260728_Projet_NAO_results.csv", sep=";", encoding='utf-8')
+truth_table = pd.read_csv("20260728_Projet_NAO_table_verite.csv", sep=";", encoding='latin-1')
 
 stations_names = [" "] + truth_table["Nom arret"].tolist()
 st.session_state.stations_names = stations_names
