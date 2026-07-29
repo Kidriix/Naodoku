@@ -4,10 +4,10 @@ Tram 2;Arret situe sur la ligne de tramway 2
 Tram 3;Arret situe sur la ligne de tramway 3
 Bus 4;Arret situe sur la ligne de busway 4
 Bus 5;Arret situe sur la ligne de busway 5
-Chronobus;Arret offrant une correspondance avec une ligne de Chronobus (ex. C2, C4, C20...)
+Chronobus;Arret offrant une correspondance avec une ligne de Chronobus (ex. C2 / C20...)
 Inter-lignes tram/busway;Arret situe sur au moins 1 ligne de tramway ou busway (tous pour l'instant :))
-Nom <7 lettres;Arret dont le nom complet comporte 7 caractères ou moins (espaces et tirets exclus, chiffres inclus)
-Nom <10 lettres;Arret dont le nom complet comporte 10 caractères ou moins (espaces et tirets exclus, chiffres inclus)
+Nom <7 lettres;Arret dont le nom complet comporte 7 caractères ou moins (espaces et tirets exclus / chiffres inclus)
+Nom <10 lettres;Arret dont le nom complet comporte 10 caractères ou moins (espaces et tirets exclus / chiffres inclus)
 1 seul mot;Arret dont le nom ne comporte qu'un seul mot
 3 mots ou plus;Arret dont le nom comporte 3 mots ou plus
 Lettre doublee;Arret dont le nom comporte au moins 2 lettres consécutives identiques (ex. les 2 M de Commerce)
@@ -17,8 +17,8 @@ Nord Loire;Arret situe au Nord de la Loire (Ile de Nantes exclue)
 Sud Loire;Arret situe au Sud de la Loire (Ile de Nantes exclue)
 Moins de 1km du periph; Arret situe a moins de 1km du peripherique (interieur ou exterieur)
 Moins de 2 km du periph;Arret situe a moins de 2km du peripherique (interieur ou exterieur)
-Moins de 500m eau;Arret situe a moins de 500m d'un cours d'eau (Loire, Erdre ou Sevre Nantaise)
-Moins de 1 km eau;Arret situe a moins de 1km d'un cours d'eau (Loire, Erdre ou Sevre Nantaise)
+Moins de 500m eau;Arret situe a moins de 500m d'un cours d'eau (Loire / Erdre / Sevre Nantaise)
+Moins de 1 km eau;Arret situe a moins de 1km d'un cours d'eau (Loire / Erdre / Sevre Nantaise)
 Moins de 1 km du chateau;Arret situe a moins de 1km du Chateau des Ducs 
 Moins de 2 km du chateau;Arret situe a moins de 2km du Chateau des Ducs 
 Moins de 1 km de la Tour Bretagne;Arret situe a moins de 1km de la Tour Bretagne
