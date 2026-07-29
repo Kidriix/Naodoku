@@ -13,6 +13,7 @@ st.set_page_config(page_title="DEMO", layout="wide")
 refresh = False
 grids = pd.read_csv("20260728_Projet_NAO_results.csv", sep=";", encoding='utf-8')
 truth_table = pd.read_csv("20260728_Projet_NAO_table_verite.csv", sep=";", encoding='latin-1')
+legend = pd.read_csv("20260728_Projet_NAO_legende.csv", sep=";", encoding='latin-1')
 
 stations_names = [" "] + truth_table["Nom arret"].tolist()
 st.session_state.stations_names = stations_names
@@ -71,21 +72,21 @@ with st.form("Nouvelle partie de NAODOKU !"):
   for row in range(4):
     cols = st.columns(4)
     if row == 0:
-      cols[1].write(st.session_state.grid["Criteria A"])
-      cols[2].write(st.session_state.grid["Criteria B"])
-      cols[3].write(st.session_state.grid["Criteria C"])
+      cols[1].markdown(st.session_state.grid["Criteria A"], help=legend[legend["Nom critere"]==st.session_state.grid["Criteria A"]]["Description"].tolist()[0])
+      cols[2].markdown(st.session_state.grid["Criteria B"], help=legend[legend["Nom critere"]==st.session_state.grid["Criteria B"]]["Description"].tolist()[0])
+      cols[3].markdown(st.session_state.grid["Criteria C"], help=legend[legend["Nom critere"]==st.session_state.grid["Criteria C"]]["Description"].tolist()[0])
     elif row == 1:
-      cols[0].write(st.session_state.grid["Criteria D"])
+      cols[0].markdown(st.session_state.grid["Criteria D"], help=legend[legend["Nom critere"]==st.session_state.grid["Criteria D"]]["Description"].tolist()[0])
       AD = cols[1].selectbox(label=f"{st.session_state.grid["Stations AD"]} arrêts possibles", options=stations_options, key="AD")
       BD = cols[2].selectbox(label=f"{st.session_state.grid["Stations BD"]} arrêts possibles", options=stations_options, key="BD")
       CD = cols[3].selectbox(label=f"{st.session_state.grid["Stations CD"]} arrêts possibles", options=stations_options, key="CD")
     elif row == 2:
-      cols[0].write(st.session_state.grid["Criteria E"])
+      cols[0].markdown(st.session_state.grid["Criteria E"], help=legend[legend["Nom critere"]==st.session_state.grid["Criteria E"]]["Description"].tolist()[0])
       AE = cols[1].selectbox(label=f"{st.session_state.grid["Stations AE"]} arrêts possibles", options=stations_options, key="AE")
       BE = cols[2].selectbox(label=f"{st.session_state.grid["Stations BE"]} arrêts possibles", options=stations_options, key="BE")
       CE = cols[3].selectbox(label=f"{st.session_state.grid["Stations CE"]} arrêts possibles", options=stations_options, key="CE")
     elif row == 3:
-      cols[0].write(st.session_state.grid["Criteria F"])
+      cols[0].markdown(st.session_state.grid["Criteria F"], help=legend[legend["Nom critere"]==st.session_state.grid["Criteria F"]]["Description"].tolist()[0])
       AF = cols[1].selectbox(label=f"{st.session_state.grid["Stations AF"]} arrêts possibles", options=stations_options, key="AF")
       BF = cols[2].selectbox(label=f"{st.session_state.grid["Stations BF"]} arrêts possibles", options=stations_options, key="BF")
       CF = cols[3].selectbox(label=f"{st.session_state.grid["Stations CF"]} arrêts possibles", options=stations_options, key="CF")
