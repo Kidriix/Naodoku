@@ -79,7 +79,7 @@ Bon jeu !
 
 PS : Le projet est encore très bancal et le dev du jeu n'étant pas dev de métier merci d'être indulgent :) 
 ''')
-st.link_button(label="Lien Métrodoku", url="metrodoku.fr")
+st.link_button(label="Lien Métrodoku", url="www.metrodoku.fr")
 
 with st.form("Nouvelle partie de NAODOKU !"):
   st.write("Nouvelle partie de NAODOKU !")
