@@ -82,7 +82,7 @@ li {
 </style>
 """, unsafe_allow_html=True)
 
-width = streamlit_js_eval(js_expressions='window.innerWidth', key='WIDTH')
+#width = streamlit_js_eval(js_expressions='window.innerWidth', key='WIDTH')
 
 refresh = False
 grids = pd.read_csv("20260728_Projet_NAO_results.csv", sep=";", encoding='utf-8')
