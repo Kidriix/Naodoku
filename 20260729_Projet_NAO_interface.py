@@ -4,7 +4,7 @@ import streamlit as st
 import os
 import numpy as np
 from datetime import datetime
-from streamlit_js_eval import streamlit_js_eval
+#from streamlit_js_eval import streamlit_js_eval
 
 
 st.cache_data.clear()
