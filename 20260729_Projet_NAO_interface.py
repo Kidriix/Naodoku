@@ -9,8 +9,7 @@ from datetime import datetime
 st.cache_data.clear()
 submitted = False
 
-st.set_page_config(page_title="DEMO", layout="wide")
-
+st.set_page_config(page_title="DEMO", layout="centered")
 st.markdown("""
 <style>
 /* Force les variables de thème clair, peu importe data-theme */
@@ -119,6 +118,8 @@ legend = pd.read_csv("20260728_Projet_NAO_legende.csv", sep=";", encoding='latin
 
 stations_names = [" "] + sorted(truth_table["Nom arret"].tolist())
 st.session_state.stations_names = stations_names
+row_letters = ["D", "E", "F"]
+col_letters = ["A", "B", "C"]
 
 def pick_random_grid():
     a = np.random.randint(len(grids))
@@ -126,8 +127,37 @@ def pick_random_grid():
 
     return selected_grid
 
+def get_possible_stations(crit1, crit2):
+  possible_list = sorted(truth_table[(truth_table[crit1] == "VRAI") & (truth_table[crit2] == "VRAI")]["Nom arret"].tolist())
+  return possible_list
+
+def get_grid_possibilities(given_grid):
+  all_possibilities = {}
+  for col in col_letters:
+    col_name = given_grid[f"Criteria {col}"]
+    for row in row_letters:
+      row_name = given_grid[f"Criteria {row}"]
+      poss_list =  get_possible_stations(col_name, row_name)
+      all_possibilities[col+row]=poss_list
+  return all_possibilities
+
 if "grid" not in st.session_state:
     st.session_state.grid = pick_random_grid()
+
+if "grid_answers" not in st.session_state:
+    st.session_state.grid_answers = get_grid_possibilities(st.session_state.grid)
+
+if "stations_options" not in st.session_state:
+    st.session_state.stations_options = st.session_state.stations_names
+
+if "user_answers" not in st.session_state:
+    st.session_state.user_answers = {}
+
+if "errors" not in st.session_state:
+    st.session_state.errors = 0
+
+if "end_game" not in st.session_state:
+    st.session_state.end_game = False
 
 def is_cell_okay(crit_col, crit_row, cell):
   crit_col_status = truth_table[truth_table["Nom arret"] == cell][crit_col].tolist()[0]
@@ -136,83 +166,40 @@ def is_cell_okay(crit_col, crit_row, cell):
      return True
   else : 
      return False
-  
-def is_grid_okay():
-   
-  for col in ["A", "B", "C"]:
-    col_name = st.session_state.grid[f"Criteria {col}"]
-    for row in ["D", "E", "F"]:
-      row_name = st.session_state.grid[f"Criteria {row}"]
-      cell = st.session_state.__getattr__(col+row)
-      cell_status = is_cell_okay(col_name, row_name, cell)
-      if not cell_status:
-        st.session_state.grid_status = False
-        st.write("Dommage, au moins 1 erreur :(")
-        return
-  st.session_state.grid_status = True
-  st.write("Bravo !")
-
-st.title('''
-:green[**NAODOKU**]
-''')
-st.info('''
-Bienvenue sur Naodoku, le "sudoku" Naolib !
-
-Comment ça marche ?
-- Le but du jeu est de remplir les 9 cases de la grille avec des arrêts de Tramway et/ou Busway du réseau Naolib tout en respectant les critères de la ligne et de la colonne.
-- Un arrêt ne peut être entré que dans une seule case de la grille
-- La partie se termine après 3 erreurs
-- Si une catégorie n'est pas claire, une petite bulle d'aide permet d'afficher une explication.
-
-Concept calqué sur métrodoku (Lien ci-dessous) en version Nantaise.
-
-Bon jeu !
-
-PS : Le projet est encore *relativement* bancal et le dev du jeu n'étant pas dev de métier merci d'être indulgent :) 
-''')
-st.link_button(label="Lien Métrodoku", url="http://www.metrodoku.fr")
-
-if "stations_options" not in st.session_state:
-    st.session_state.stations_options = st.session_state.stations_names
-
-if "answers" not in st.session_state:
-    st.session_state.answers = {}
-
-if "errors" not in st.session_state:
-    st.session_state.errors = 0
-
-st.markdown("Nombre d'erreurs (max 3): ")
-err_cols = st.columns(3, gap="small")
-err_cols_ception = err_cols[0].columns(3, border=True, gap="small")
-for i in range(st.session_state.errors):
-  err_cols_ception[i].markdown(":x:")
 
 def launch_new_game():
   st.session_state.grid = pick_random_grid()
-  st.session_state.answers = {}
+  st.session_state.end_game = False
+  st.session_state.user_answers = {}
+  st.session_state.grid_answers = get_grid_possibilities(st.session_state.grid)
   st.session_state.errors = 0
   st.session_state.stations_options = st.session_state.stations_names
   st.rerun()
 
 def reload_same_game():
-  st.session_state.answers = {}
+  st.session_state.user_answers = {}
   st.session_state.errors = 0
+  st.session_state.end_game = False
   st.session_state.stations_options = st.session_state.stations_names
   st.rerun()
 
+def give_up():
+  st.session_state.end_game = True
+  st.rerun()
+
 @st.dialog("Choisir un arrêt")
-def vote(col, row):
+def select_station(col, row):
     crit_col = st.session_state.grid[f"Criteria {col}"]
     crit_row = st.session_state.grid[f"Criteria {row}"]
     st.markdown(f"Sélectionner un arrêt vérifiant **{crit_col}** et **{crit_row}**")
-    station = st.selectbox(label=f"{st.session_state.grid[f"Stations {col+row}"]} arrêts possibles", options=st.session_state.stations_options, key=col+row)
+    station = st.selectbox(label=f"{len(st.session_state.grid_answers[col+row])} arrêts possibles", options=st.session_state.stations_options, key=col+row)
     stop_cols = st.columns(2)
     if stop_cols[0].button("Valider", type="primary", key=f"valider_{col+row}"):
       if station == " ":
         st.warning("Aucun arrêt sélectionné")
       else:
         if is_cell_okay(crit_col, crit_row, station):
-            st.session_state.answers[col+row] = station
+            st.session_state.user_answers[col+row] = station
             st.session_state.stations_options.remove(station)
         else :
             st.session_state.errors += 1
@@ -221,130 +208,121 @@ def vote(col, row):
       st.session_state.__delattr__(col+row)
       st.rerun()
 
+@st.dialog("Voir les solutions")
+def check_answers(col, row):
+  crit_col = st.session_state.grid[f"Criteria {col}"]
+  crit_row = st.session_state.grid[f"Criteria {row}"]
+  st.markdown(f"Liste des arrêts vérifiant **{crit_col}** et **{crit_row}**")
+  cell_answers = st.session_state.grid_answers[col+row]
+  for station in cell_answers:
+    st.markdown(station)
+  if st.button("Fermer", key=f"close_answers_{col+row}"):
+    st.rerun()
+
 @st.dialog("Bravo !")
 def bravo():
   st.balloons()
   st.markdown('''
   Grille complète, bravo !
   ''')
-  win_cols = st.columns(2)
-  if win_cols[0].button("Nouvelle grille", key="new_grid_replay_win"):
+  win_cols = st.columns(4)
+  if win_cols[0].button("Nouvelle grille", key="new_grid_replay_win", type="primary"):
     launch_new_game()
   if win_cols[1].button("Rejouer la grille", key="same_grid_replay_win"):
     reload_same_game()
+  if win_cols[2].button("Voir les solutions", key="check_answers_win"):
+    st.rerun()
+  if win_cols[3].button("Ballons :)", key="balloons_win"):
+    st.balloons()
 
 @st.dialog("Dommage...")
 def you_lose():
   st.markdown('''
   Dommage : 3 erreurs, c'est perdu
   ''')
-  lose_cols = st.columns(2)
+  lose_cols = st.columns(3)
   if lose_cols[0].button("Nouvelle grille", key="new_grid_replay_lose"):
     launch_new_game()
   if lose_cols[1].button("Rejouer la grille", key="same_grid_replay_lose"):
     reload_same_game()
+  if lose_cols[2].button("Voir les solutions", key="check_answers_lose"):
+    st.rerun()
+
+@st.dialog("Confirmation")
+def are_you_sure(action, action_func):
+  st.markdown(f'''
+  Êtes-vous sûr.e de vouloir **{action}** ?
   
+  Cela mettra fin à la partie en cours.
+  ''')
+  confirm_cols = st.columns(2)
+  if confirm_cols[0].button("Confirmer", key=f"confirm", type="primary"):
+    action_func()
+  if confirm_cols[1].button("Annuler", key=f"cancel"):
+    st.rerun()
+
+st.header('''
+:green[**NAODOKU**]
+''')
+st.info('''
+Bienvenue sur Naodoku, le "sudoku" Naolib !
+
+Comment ça marche ?
+- Le but du jeu est de remplir les 9 cases de la grille avec des arrêts de Tramway et/ou Busway du réseau Naolib tout en respectant les critères de la ligne et de la colonne.
+- Une fois entré, un arrêt ne peut plus être ni modifié, réutilisé ailleurs dans la grille.
+- La partie se termine une fois les 9 cases complétées ou après 3 erreurs.
+- Si une catégorie n'est pas claire, une petite bulle d'aide permet d'afficher une explication.
+- A la fin de la partie, les solutions seront consultables par case.
+
+Concept calqué sur [**métrodoku**](https://www.metrodoku.fr) en version Nantaise.
+
+Bon jeu !
+
+PS : Le projet est encore *relativement* bancal et le dev du jeu n'étant pas dev de métier merci d'être indulgent :) 
+''')
+st.link_button(label="Lien Métrodoku", url="https://www.metrodoku.fr")
+
+with st.container(border = True):
+  st.markdown("C'est le menu")
+  bottom_cols = st.columns(3)
+  if bottom_cols[0].button(":heavy_plus_sign: Générer une nouvelle grille", key="new_grid_reset"):
+    are_you_sure("Générer une nouvelle grille", launch_new_game)
+  if bottom_cols[1].button(":repeat: Réinitialiser la grille", key="same_grid_reset"):
+    are_you_sure("Réinitialiser la grille", reload_same_game)
+  if not st.session_state.end_game :
+    if bottom_cols[2].button(":x: Abandonner et voir les résultats", key="give_up"):
+      are_you_sure("Abandonner et voir les résultats", give_up)
+
+st.markdown("Nombre d'erreurs (max 3): ")
+err_cols = st.columns(3, gap="small", border= False)
+err_col_ception = err_cols[0].columns(3, gap="small", border= True)
+for i in range(st.session_state.errors):
+  err_col_ception[i].markdown(":x:")
 
 for row in range(4):
-  grid_cols = st.columns(4, border=True)
+  grid_cols = st.columns(4, border = True)
   if row == 0:
-    with grid_cols[1].container():
-      st.markdown(f"**{st.session_state.grid["Criteria A"]}**", help=legend[legend["Nom critere"]==st.session_state.grid["Criteria A"]]["Description"].tolist()[0])
-    grid_cols[2].markdown(f"**{st.session_state.grid["Criteria B"]}**", help=legend[legend["Nom critere"]==st.session_state.grid["Criteria B"]]["Description"].tolist()[0])
-    grid_cols[3].markdown(f"**{st.session_state.grid["Criteria C"]}**", help=legend[legend["Nom critere"]==st.session_state.grid["Criteria C"]]["Description"].tolist()[0])
-  elif row == 1:
-    grid_cols[0].markdown(f"**{st.session_state.grid["Criteria D"]}**", help=legend[legend["Nom critere"]==st.session_state.grid["Criteria D"]]["Description"].tolist()[0])
-    
-    if "AD" not in st.session_state.answers:
-      AD_button = grid_cols[1].button(label=f"{st.session_state.grid[f"Stations AD"]} arrêts possibles", key="AD_button", on_click=vote, kwargs={"col":"A", "row":"D"})
-    else : 
-      grid_cols[1].markdown(st.session_state.answers["AD"])
+    for (i, let_col) in enumerate(col_letters):
+      with grid_cols[i + 1].container(border= True):
+        st.markdown(f"**{st.session_state.grid[f"Criteria {let_col}"]}**", help=legend[legend["Nom critere"]==st.session_state.grid[f"Criteria {let_col}"]]["Description"].tolist()[0])
+  else: 
+    row_let = row_letters[row-1]
+    with grid_cols[0].container(border= True):
+        st.markdown(f"**{st.session_state.grid[f"Criteria {row_let}"]}**", help=legend[legend["Nom critere"]==st.session_state.grid[f"Criteria {row_let}"]]["Description"].tolist()[0])
+    for (i, col_let) in enumerate(col_letters):
+      cell_id = col_let + row_let
+      if not st.session_state.end_game:
+        if cell_id not in st.session_state.user_answers:
+          button = grid_cols[i + 1].button(label=f"{len(st.session_state.grid_answers[cell_id])} arrêts possibles", key=cell_id+"_answer_button", on_click=select_station, kwargs={"col": col_let, "row": row_let})
+        else : 
+          grid_cols[i + 1].markdown(st.session_state.user_answers[cell_id])
+      else :
+        button = grid_cols[i + 1].button(label=f"Voir les {len(st.session_state.grid_answers[cell_id])} solutions", key=cell_id+"_endgame_button", on_click=check_answers, kwargs={"col": col_let, "row": row_let})
 
-    if "BD" not in st.session_state.answers:
-      BD_button = grid_cols[2].button(label=f"{st.session_state.grid[f"Stations BD"]} arrêts possibles", key="BD_button", on_click=vote, kwargs={"col":"B", "row":"D"})
-    else : 
-      grid_cols[2].write(st.session_state.answers["BD"])
-
-    if "CD" not in st.session_state.answers:
-      CD_button = grid_cols[3].button(label=f"{st.session_state.grid[f"Stations CD"]} arrêts possibles", key="CD_button", on_click=vote, kwargs={"col":"C", "row":"D"})
-    else : 
-      grid_cols[3].write(st.session_state.answers["CD"])
-
-  elif row == 2:
-    grid_cols[0].markdown(f"**{st.session_state.grid["Criteria E"]}**", help=legend[legend["Nom critere"]==st.session_state.grid["Criteria E"]]["Description"].tolist()[0])
-    if "AE" not in st.session_state.answers:
-      AE_button = grid_cols[1].button(label=f"{st.session_state.grid[f"Stations AE"]} arrêts possibles", key="AE_button", on_click=vote, kwargs={"col":"A", "row":"E"})
-    else : 
-      grid_cols[1].markdown(st.session_state.answers["AE"])
-
-    if "BE" not in st.session_state.answers:
-      BE_button = grid_cols[2].button(label=f"{st.session_state.grid[f"Stations BE"]} arrêts possibles", key="BE_button", on_click=vote, kwargs={"col":"B", "row":"E"})
-    else : 
-      grid_cols[2].write(st.session_state.answers["BE"])
-
-    if "CE" not in st.session_state.answers:
-      CE_button = grid_cols[3].button(label=f"{st.session_state.grid[f"Stations CE"]} arrêts possibles", key="CE_button", on_click=vote, kwargs={"col":"C", "row":"E"})
-    else : 
-      grid_cols[3].write(st.session_state.answers["CE"])
-
-  elif row == 3:
-    grid_cols[0].markdown(f"**{st.session_state.grid["Criteria F"]}**", help=legend[legend["Nom critere"]==st.session_state.grid["Criteria F"]]["Description"].tolist()[0])
-    if "AF" not in st.session_state.answers:
-      AF_button = grid_cols[1].button(label=f"{st.session_state.grid[f"Stations AF"]} arrêts possibles", key="AF_button", on_click=vote, kwargs={"col":"A", "row":"F"})
-    else : 
-      grid_cols[1].markdown(st.session_state.answers["AF"])
-
-    if "BF" not in st.session_state.answers:
-      BF_button = grid_cols[2].button(label=f"{st.session_state.grid[f"Stations BF"]} arrêts possibles", key="BF_button", on_click=vote, kwargs={"col":"B", "row":"F"})
-    else : 
-      grid_cols[2].write(st.session_state.answers["BF"])
-
-    if "CF" not in st.session_state.answers:
-      CF_button = grid_cols[3].button(label=f"{st.session_state.grid[f"Stations CF"]} arrêts possibles", key="CF_button", on_click=vote, kwargs={"col":"C", "row":"F"})
-    else : 
-      grid_cols[3].write(st.session_state.answers["CF"])
-
-if len(st.session_state.answers) == 9:
+if (len(st.session_state.user_answers) == 9) & (not st.session_state.end_game):
+  st.session_state.end_game = True
   bravo()
 
-if st.session_state.errors == 3:
+if (st.session_state.errors == 3) & (not st.session_state.end_game):
+  st.session_state.end_game = True
   you_lose()
-
-with st.sidebar:
-  st.title("C'est le menu")
-  if st.button("Nouvelle grille", key="new_grid_reset"):
-      launch_new_game()
-  if st.button("Réinitialiser la grille", key="same_grid_reset"):
-      reload_same_game()
-  
-# ---- OLD VERSION ------
-# with st.form("Main Form"):
-#   st.write("Nouvelle partie de NAODOKU !")
-
-#   stations_options = st.session_state.stations_names
-
-#   for row in range(4):
-#     cols = st.columns([0.25, 0.25, 0.25, 0.25])
-#     if row == 0:
-#       cols[1].markdown(st.session_state.grid["Criteria A"], help=legend[legend["Nom critere"]==st.session_state.grid["Criteria A"]]["Description"].tolist()[0])
-#       cols[2].markdown(st.session_state.grid["Criteria B"], help=legend[legend["Nom critere"]==st.session_state.grid["Criteria B"]]["Description"].tolist()[0])
-#       cols[3].markdown(st.session_state.grid["Criteria C"], help=legend[legend["Nom critere"]==st.session_state.grid["Criteria C"]]["Description"].tolist()[0])
-#     elif row == 1:
-#       cols[0].markdown(st.session_state.grid["Criteria D"], help=legend[legend["Nom critere"]==st.session_state.grid["Criteria D"]]["Description"].tolist()[0])
-#       AD = cols[1].selectbox(label=f"{st.session_state.grid["Stations AD"]} arrêts possibles", options=stations_options, key="AD")
-#       BD = cols[2].selectbox(label=f"{st.session_state.grid["Stations BD"]} arrêts possibles", options=stations_options, key="BD")
-#       CD = cols[3].selectbox(label=f"{st.session_state.grid["Stations CD"]} arrêts possibles", options=stations_options, key="CD")
-#     elif row == 2:
-#       cols[0].markdown(st.session_state.grid["Criteria E"], help=legend[legend["Nom critere"]==st.session_state.grid["Criteria E"]]["Description"].tolist()[0])
-#       AE = cols[1].selectbox(label=f"{st.session_state.grid["Stations AE"]} arrêts possibles", options=stations_options, key="AE")
-#       BE = cols[2].selectbox(label=f"{st.session_state.grid["Stations BE"]} arrêts possibles", options=stations_options, key="BE")
-#       CE = cols[3].selectbox(label=f"{st.session_state.grid["Stations CE"]} arrêts possibles", options=stations_options, key="CE")
-#     elif row == 3:
-#       cols[0].markdown(st.session_state.grid["Criteria F"], help=legend[legend["Nom critere"]==st.session_state.grid["Criteria F"]]["Description"].tolist()[0])
-#       AF = cols[1].selectbox(label=f"{st.session_state.grid["Stations AF"]} arrêts possibles", options=stations_options, key="AF")
-#       BF = cols[2].selectbox(label=f"{st.session_state.grid["Stations BF"]} arrêts possibles", options=stations_options, key="BF")
-#       CF = cols[3].selectbox(label=f"{st.session_state.grid["Stations CF"]} arrêts possibles", options=stations_options, key="CF")
-
-#   submitted = st.form_submit_button(label="Vérifier la grille")
-#   if submitted :
-#     is_grid_okay()
