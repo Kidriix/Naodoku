@@ -34,13 +34,6 @@ section[data-testid="stSidebar"] * {
     color: #31333F !important;
 }
 
-/* Boutons */
-.stButton > button {
-    background-color: #FFFFFF !important;
-    color: #31333F !important;
-    border: 1px solid #228B22 !important;
-}
-
 /* Inputs, selects, textareas */
 input, textarea, select {
     background-color: #FFFFFF !important;
