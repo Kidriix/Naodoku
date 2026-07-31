@@ -4,7 +4,6 @@ import streamlit as st
 import os
 import numpy as np
 from datetime import datetime
-#from streamlit_js_eval import streamlit_js_eval
 
 
 st.cache_data.clear()
@@ -14,6 +13,44 @@ st.set_page_config(page_title="DEMO", layout="wide")
 
 st.markdown("""
 <style>
+/* Force les variables de thème clair, peu importe data-theme */
+:root, .stApp, [data-theme="dark"] {
+    --background-color: #FFFFFF !important;
+    --secondary-background-color: #F0F2F6 !important;
+    --text-color: #31333F !important;
+    --primary-color: #228B22 !important;
+}
+
+.stApp {
+    background-color: #FFFFFF !important;
+    color: #31333F !important;
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background-color: #F0F2F6 !important;
+}
+section[data-testid="stSidebar"] * {
+    color: #31333F !important;
+}
+
+/* Boutons */
+.stButton > button {
+    background-color: #FFFFFF !important;
+    color: #31333F !important;
+    border: 1px solid #228B22 !important;
+}
+
+/* Inputs, selects, textareas */
+input, textarea, select {
+    background-color: #FFFFFF !important;
+    color: #31333F !important;
+}
+
+/* Header en haut */
+header[data-testid="stHeader"] {
+    background-color: #FFFFFF !important;
+}
 .stApp {
     background-color: #FFFFFF;
     color: #31333F;
@@ -81,8 +118,6 @@ li {
 }
 </style>
 """, unsafe_allow_html=True)
-
-#width = streamlit_js_eval(js_expressions='window.innerWidth', key='WIDTH')
 
 refresh = False
 grids = pd.read_csv("20260728_Projet_NAO_results.csv", sep=";", encoding='utf-8')
