@@ -273,13 +273,14 @@ st.markdown(f"""
 :root {{
     --cell-size: min(20vw, 100px);
 }}
-[data-testid="stVerticalBlock"] > [data-testid="stHorizontalBlock"] {{
+[data-testid="stHorizontalBlock"] {{
     max-width: 480px;
     margin: 0 auto;
     flex-wrap: nowrap !important;
+    flex-direction: row !important;
     gap: min(2vw, 10px) !important;
 }}
-[data-testid="stHorizontalBlock"] > [data-testid="column"] {{
+[data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {{
     width: 25% !important;
     flex: 1 1 25% !important;
     min-width: 0 !important;
