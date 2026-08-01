@@ -3,15 +3,17 @@ import pandas as pd
 import altair as alt
 import time
 import numpy as np
+import os
 from datetime import datetime
 import base64
 
 st.set_page_config(page_title="NAO_DEMO", layout="centered")
-
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 grids = pd.read_csv("20260728_Projet_NAO_results.csv", sep=";", encoding='utf-8')
 truth_table = pd.read_csv("20260728_Projet_NAO_table_verite.csv", sep=";", encoding='latin-1')
 legend = pd.read_csv("20260728_Projet_NAO_legende.csv", sep=";", encoding='latin-1')
-lines_logos = [f"images\\indices de ligne_svg_picto ligne {i}.svg" for i in range(1, 6)]
+
+lines_logos = [os.path.join(BASE_DIR, "images", f"indices de ligne_svg_picto ligne {i}.svg") for i in range(1, 6)]
 
 TRAM_SVG = '''<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M18.9679 16.7134L18.1211 8.57285C18.1211 8.56462 18.1203 8.55722 18.1195 8.54899L18.0652 8.02724C17.8602 6.05876 16.1238 4.57417 14.0261 4.57417H12.9226L14.2376 2.82459H15.4194V3.2591H16.2423V2.41229C16.2423 2.18434 16.058 2 15.8309 2H9.16831C8.94118 2 8.75684 2.18434 8.75684 2.41229V3.2591H9.57979V2.82459H10.7615L12.0766 4.57417H10.9582C8.86053 4.57417 7.12412 6.05876 6.91921 8.02724L6.01562 16.7134C5.9325 17.5092 6.18843 18.2819 6.73487 18.8901C7.2525 19.4653 7.97916 19.8233 8.76425 19.8998L7.3743 22H9.0531L9.47116 21.368H15.6737L16.0917 22H17.7705L16.3691 19.8817C17.0966 19.7772 17.7648 19.4291 18.2495 18.8901C18.7959 18.2819 19.051 17.5092 18.9679 16.7134ZM11.689 2.82459H13.3094L12.4988 3.90265L11.689 2.82459ZM8.25567 8.69876L8.31081 8.1729C8.44083 6.92038 9.57979 5.97646 10.9582 5.97646H14.0253C15.4046 5.97646 16.5427 6.92038 16.6727 8.1729L16.7287 8.70699C16.825 9.76777 16.4736 10.7981 15.7371 11.6112C14.9273 12.5049 13.7447 13.0176 12.493 13.0176C11.2413 13.0176 10.0637 12.5073 9.2539 11.6169C8.51243 10.8014 8.15856 9.7653 8.25732 8.69876H8.25567ZM10.0168 20.5434L10.4324 19.9155H14.7125L15.1281 20.5434H10.0168ZM17.2101 17.9519C16.8892 18.3091 16.4127 18.514 15.9041 18.514H9.07944C8.57086 18.514 8.0952 18.3091 7.77342 17.9519C7.49527 17.6425 7.36524 17.2549 7.40639 16.8591L7.8944 12.1675C7.99562 12.3024 8.10342 12.4333 8.21946 12.5608C9.29422 13.7418 10.8512 14.419 12.4922 14.419C14.1331 14.419 15.6975 13.7385 16.7723 12.5526C16.8851 12.4283 16.9896 12.3 17.0883 12.1691L17.5763 16.8591C17.6175 17.2549 17.4883 17.6425 17.2101 17.9519Z" fill="#000000"/>
@@ -462,6 +464,3 @@ if (len(st.session_state.user_answers) == 9) & (not st.session_state.end_game):
 if (st.session_state.errors == 3) & (not st.session_state.end_game):
   st.session_state.end_game = True
   you_lose()
-
-if time.time()-st.session_state.game_start_time % 15 == 0:
-    switch_bus_tram_logo()
