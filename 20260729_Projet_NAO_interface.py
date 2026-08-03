@@ -6,6 +6,33 @@ import numpy as np
 import os
 from datetime import datetime
 import base64
+import requests
+
+def get_airtable_headers():
+    return {
+        "Authorization": f"Bearer {st.secrets['airtable']['token']}",
+        "Content-Type": "application/json"
+    }
+
+def get_airtable_url():
+    base_id = st.secrets["airtable"]["base_id"]
+    table = st.secrets["airtable"]["table_name"]
+    return f"https://api.airtable.com/v0/{base_id}/{table}"
+
+
+def get_all_results():
+    all_records = []
+    url = get_airtable_url()
+    params = {}
+    while True:
+        response = requests.get(url, headers=get_airtable_headers(), params=params)
+        result = response.json()
+        all_records.extend(result.get("records", []))
+        offset = result.get("offset")
+        if not offset:
+            break
+        params["offset"] = offset
+    return pd.DataFrame([r["fields"] for r in all_records])
 
 st.set_page_config(page_title="NAO_DEMO", layout="centered")
 
@@ -106,6 +133,9 @@ if "last_clicked" not in st.session_state:
 if "clickable_ids" not in st.session_state:
     st.session_state.clickable_ids = clickable_ids
 
+if "result_saved" not in st.session_state:
+    st.session_state.result_saved = False
+
 if "game_start_time" not in st.session_state:
     st.session_state.game_start_time = time.time()
 
@@ -130,6 +160,7 @@ def launch_new_game():
   st.session_state.stations_options = st.session_state.stations_names
   st.session_state.game_duration = 0
   st.session_state.game_start_time = time.time()
+  st.session_state.result_saved = False
   random_bus_tram_logo()
   st.rerun()
 
@@ -141,12 +172,36 @@ def reload_same_game():
   st.session_state.stations_options = st.session_state.stations_names
   st.session_state.game_duration = 0
   st.session_state.game_start_time = time.time()
+  st.session_state.result_saved = False
   random_bus_tram_logo()
   st.rerun()
 
 def give_up():
   st.session_state.end_game = True
   st.rerun()
+
+def save_result_airtable():
+    try:
+        stats = {}
+        for letter_id in col_letters + row_letters:
+            stats[f"Critere {letter_id}"] = st.session_state.grid[f"Criteria {letter_id}"]
+        for col_id in col_letters:
+            for row_id in row_letters:
+                stats[f"Arret {col_id+row_id}"] = st.session_state.user_answers[col_id+row_id]
+        
+        stats["Temps"] = str(st.session_state.game_duration)
+        
+        data = {
+            "fields": stats
+        }
+
+        response = requests.post(get_airtable_url(), headers=get_airtable_headers(), json=data, timeout=5)
+        if response.status_code != 200:
+            st.toast("⚠️ Le résultat n'a pas pu être enregistré.", icon="⚠️")
+        return response.status_code == 200
+    except Exception as e:
+        st.toast("⚠️ Le résultat n'a pas pu être enregistré.", icon="⚠️")
+        return False
 
 def save_game_stats():
     stats = {}
@@ -472,7 +527,9 @@ if cols[3].button(errors_labels[2], key="3rd_error", disabled=True):
 if (len(st.session_state.user_answers) == 9) & (not st.session_state.end_game):
   st.session_state.end_game = True
   st.session_state.game_duration = time.time() - st.session_state.game_start_time
-  save_game_stats()
+  if not st.session_state.get("result_saved", False):
+    save_result_airtable()
+    st.session_state.result_saved = True
   bravo()
 
 if (st.session_state.errors == max_errors) & (not st.session_state.end_game):
