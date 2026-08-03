@@ -187,8 +187,10 @@ def save_result_airtable():
             stats[f"Critere {letter_id}"] = st.session_state.grid[f"Criteria {letter_id}"]
         for col_id in col_letters:
             for row_id in row_letters:
-                stats[f"Arret {col_id+row_id}"] = st.session_state.user_answers[col_id+row_id]
-        
+                if col_id+row_id in st.session_state.user_answers:
+                    stats[f"Arret {col_id+row_id}"] = st.session_state.user_answers[col_id+row_id]
+                else : 
+                    stats[f"Arret {col_id+row_id}"] = "Non renseigné"
         stats["Temps"] = str(st.session_state.game_duration)
         
         data = {
@@ -534,4 +536,8 @@ if (len(st.session_state.user_answers) == 9) & (not st.session_state.end_game):
 
 if (st.session_state.errors == max_errors) & (not st.session_state.end_game):
   st.session_state.end_game = True
+  st.session_state.game_duration = time.time() - st.session_state.game_start_time
+  if not st.session_state.get("result_saved", False):
+    save_result_airtable()
+    st.session_state.result_saved = True
   you_lose()
