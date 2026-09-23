@@ -71,12 +71,55 @@ clickable_ids = {5, 6, 7, 9, 10, 11, 13, 14, 15}  # exemple : 9 cases cliquables
 criteria_ids = {1, 2, 3, 4, 8, 12}
 grid_ids_to_letters = {1:"A", 2:"B", 3:"C", 4:"D", 5:"AD", 6:"BD", 7:"CD", 8:"E", 9:"AE", 10:"BE", 11:"CE", 12:"F", 13:"AF", 14:"BF", 15:"CF"}
 
+difficulty_bounds = {
+  "easy": {
+    "min":1,
+    "max":2
+  },
+  "normal": {
+    "min":2.5,
+    "max":3.5
+  },
+  "hard": {
+    "min":4,
+    "max":5
+  },
+}
+
+difficulty_FR_EN = {
+   "Facile": "easy",
+   "Normal": "normal",
+   "Difficile": "hard"
+}
+difficulty_explanation = '''
+**Méthode d'estimation de la difficulté d'une grille**
+
+Chaque case de la grille comporte un nombre de réponses possibles. 
+En fonction de ce nombre, on associe un score de difficulté à la case selon le barème suivant :
+- 1 à 3 réponses possibles : 5 points
+- 4 à 6 réponses possibles : 4 points
+- 7 à 9 réponses possibles : 3 points
+- 10 à 12 réponses possibles : 2 points
+- 13 ou plus réponses possibles : 1 point
+
+La somme des scores des 9 cases donne une note sur 45, ramenée en note sur 5 puis arrondie au 0.5 le plus proche.
+
+**Limites** : 
+La méthode ne prend pas en compte le contenu des critères des cases, qui jouent un rôle dans la difficulté réelle.
+'''
+
+
 if "first_opening" not in st.session_state:
     st.session_state.first_opening = True
 
-def pick_random_grid():
-    a = np.random.randint(len(grids))
-    selected_grid = grids.iloc[int(a)]
+def pick_random_grid(difficulty=None):
+    if difficulty is not None:
+      min_bound, up_bound = difficulty_bounds[difficulty]["min"], difficulty_bounds[difficulty]["max"]
+      filtered_grids = grids[(grids["Score"] >= min_bound) & (grids["Score"] <= up_bound)]
+    else : 
+      filtered_grids = grids
+    a = np.random.randint(len(filtered_grids))
+    selected_grid = filtered_grids.iloc[int(a)]
 
     return selected_grid
 
@@ -111,6 +154,7 @@ def switch_bus_tram_logo():
 
 if "grid" not in st.session_state:
     st.session_state.grid = pick_random_grid()
+    st.session_state.grid_difficulty = float(st.session_state.grid["Score"])
 
 if "grid_answers" not in st.session_state:
     st.session_state.grid_answers = get_grid_possibilities(st.session_state.grid)
@@ -136,6 +180,9 @@ if "clickable_ids" not in st.session_state:
 if "result_saved" not in st.session_state:
     st.session_state.result_saved = False
 
+if "grid_difficulty" not in st.session_state:
+    st.session_state.grid_difficulty = 0
+
 if "game_start_time" not in st.session_state:
     st.session_state.game_start_time = time.time()
 
@@ -150,8 +197,9 @@ def is_cell_okay(crit_col, crit_row, cell):
   else : 
      return False
 
-def launch_new_game():
-  st.session_state.grid = pick_random_grid()
+def launch_new_game(difficulty=None):
+  st.session_state.grid = pick_random_grid(difficulty)
+  st.session_state.grid_difficulty = float(st.session_state.grid["Score"])
   st.session_state.end_game = False
   st.session_state.user_answers = {}
   st.session_state.grid_answers = get_grid_possibilities(st.session_state.grid)
@@ -333,7 +381,23 @@ def are_you_sure(action, action_func):
   if confirm_cols[1].button("Annuler", key=f"cancel"):
     st.rerun()
 
+@st.dialog("Nouvelle Grille")
+def select_difficulty():
+   st.markdown('''
+    Choisir un niveau de difficulté 
+    - Facile : De 1 à 2/5
+    - Normal : De 2,5 à 3,5/5 
+    - Difficile : De 4 à 5/5          
+    ''')
+   difficulty_level = st.selectbox("Niveau de difficulté pour la nouvelle grille", ["Facile", "Normal", "Difficile"], key = "difficulty_choice", help=difficulty_explanation)
+   difficulty_choice = difficulty_FR_EN[difficulty_level]
+   confirm_cols = st.columns(2)
+   if confirm_cols[0].button("Confirmer", key=f"confirm_difficulty", type="primary"):
+    launch_new_game(difficulty_choice)
+   if confirm_cols[1].button("Annuler", key=f"cancel_difficulty"):
+    st.rerun()
 # --- Config des 16 cases : lesquelles sont cliquables ---
+
 
 labels = []
 for i in range(16):
@@ -494,11 +558,13 @@ for row in range(5):
         if cols[0].button("**Règles**", key="menu_rules"):
             welcome()
         if cols[1].button("Générer une nouvelle grille", icon="➕", key="new_grid_reset"):
-            are_you_sure("Générer une nouvelle grille", launch_new_game)
+            select_difficulty()
         if cols[2].button("Réinitialiser la grille", icon="🔁", key="same_grid_reset"):
             are_you_sure("Réinitialiser la grille", reload_same_game)
         if cols[3].button("Abandonner et voir les résultats", icon="❌" , key="give_up", disabled=st.session_state.end_game):
             are_you_sure("Abandonner et voir les résultats", give_up)
+        cols[0].markdown('''**Difficulté estimée :**''')
+        cols[1].markdown(f"{st.session_state.grid_difficulty} / 5")
     else :
         for col_idx in range(4):
             i = (row-1) * 4 + col_idx
