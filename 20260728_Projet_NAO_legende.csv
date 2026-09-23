@@ -1,34 +1,33 @@
 Nom critere;Description
-Sur la ligne de Tramway 1;ArrÃªt situÃ© sur la ligne de tramway 1
-Sur la ligne de Tramway 2;ArrÃªt situÃ© sur la ligne de tramway 2 
-Sur la ligne de Tramway 3;ArrÃªt situÃ© sur la ligne de tramway 3
-Sur la ligne de Busway 4;ArrÃªt situÃ© sur la ligne de busway 4
-Sur la ligne de Busway 5;ArrÃªt situÃ© sur la ligne de busway 5
-En correspondance avec un Chronobus;ArrÃªt offrant une correspondance avec une ligne de Chronobus (ex. C2 / C20...)
-Terminus de ligne;ArrÃªt Ã©tant un des terminus d'une ligne (Indice : certaines lignes peuvent avoir plus que 2 terminus)
-Sur 2 lignes ou plus;ArrÃªt situÃ© sur au moins 2 lignes de tramway ou busway
-Nom de 9 lettres ou moins;ArrÃªt dont le nom complet comporte 9 caractÃ¨res ou moins (espaces et tirets exclus / chiffres inclus)
-Nom en 1 seul mot;ArrÃªt dont le nom ne comporte qu'un seul mot
-Nom en 3 mots ou plus;ArrÃªt dont le nom comporte 3 mots ou plus
-Contient une lettre doublee;ArrÃªt dont le nom comporte au moins 2 lettres consÃ©cutives identiques (ex. les 2 M de Commerce)
-Commence par un M;ArrÃªt dont le nom commence par la lettre M
-Commence par un B;ArrÃªt dont le nom commence par la lettre B
-Commence par une voyelle;ArrÃªt dont le nom commence par une voyelle (A, E, I, O, U, Y)
-Termine par un S;ArrÃªt dont le nom termine par la lettre S
-Termine par un E;ArrÃªt dont le nom termine par la lettre E (accentuÃ©e ou non)
-Contient un H;ArrÃªt dont le nom contient au moins une fois la lettre H
-Contient un P;ArrÃªt dont le nom contient au moins une fois la lettre P
-Ne contient pas de E;ArrÃªt dont le nom ne contient pas la lettre E (accentuÃ©e ou non)
-Situe dans Nantes;ArrÃªt situÃ© sur la commune de Nantes
-Sur une autre commune que Nantes;ArrÃªt situÃ© sur une commune de la mÃ©tropole autre que Nantes
-Nord Loire;ArrÃªt situÃ© au Nord de la Loire (Ãle de Nantes exclue)
-Sud Loire;ArrÃªt situÃ© au Sud de la Loire (Ãle de Nantes exclue)
-Ile de Nantes;ArrÃªt situÃ© prÃ©cisÃ©ment sur l'Ãle de Nantes
-Moins de 1km du peripherique;ArrÃªt situÃ© Ã  moins de 1km du pÃ©riphÃ©rique (intÃ©rieur ou extÃ©rieur)
-Moins de 500m eau;ArrÃªt situÃ© Ã  moins de 500m d'un cours d'eau (Loire / Erdre / SÃ¨vre Nantaise)
-Moins de 1 km d une riviere;ArrÃªt situÃ© Ã  moins de 1km d'un cours d'eau (Loire / Erdre / SÃ¨vre Nantaise)
-Moins de 1 km du chateau;ArrÃªt situÃ© Ã  moins de 1km du ChÃ¢teau des Ducs 
-Moins de 1 km de la Tour Bretagne;ArrÃªt situÃ© Ã  moins de 1km de la Tour Bretagne
-Moins de 2 km hippodrome;ArrÃªt situÃ© Ã  moins de 2km de l'hippodrome (mesurÃ© depuis son centre)
-Moins de 2 km des machines;ArrÃªt situÃ© Ã  moins de 2km des nefs de la Compagnie des Machines
-Moins de 3 km du stade de la Beaujoire;ArrÃªt situÃ© Ã  moins de 3km du Stade de la Beaujoire
+Sur la ligne de Tramway 1;Arrêt situé sur la ligne de tramway 1
+Sur la ligne de Tramway 2;Arrêt situé sur la ligne de tramway 2 
+Sur la ligne de Tramway 3;Arrêt situé sur la ligne de tramway 3
+Sur la ligne de Busway 4;Arrêt situé sur la ligne de busway 4
+Sur la ligne de Busway 5;Arrêt situé sur la ligne de busway 5
+Terminus de ligne;Arrêt situé à l'une des extrémités d'une ligne (indice : certaines lignes ont plus que 2 terminus)
+En correspondance avec un Chronobus;Arrêt offrant une correspondance avec une ligne de Chronobus (ex. C2 / C20...)
+Sur 2 lignes ou plus;Arrêt situé sur au moins 2 lignes de tramway ou busway
+Nom de 9 lettres ou moins;Arrêt dont le nom complet comporte 9 caractères ou moins (espaces et tirets exclus / chiffres inclus)
+Nom en 1 seul mot;Arrêt dont le nom ne comporte qu'un seul mot
+Nom en 3 mots ou plus;Arrêt dont le nom comporte 3 mots ou plus
+Contient une lettre doublee;Arrêt dont le nom comporte au moins 2 lettres consécutives identiques (ex. les 2 M de Commerce)
+Commence par un M;Arrêt dont le nom commence par la lettre M
+Commence par un B;Arrêt dont le nom commence par la lettre B
+Commence par une voyelle;Arrêt dont le nom commence par une voyelle (A, E, I, O, U, Y)
+Termine par un S;Arrêt dont le nom termine par la lettre S
+Termine par un E;Arrêt dont le nom termine par la lettre E (accentuée ou non)
+Contient un H;Arrêt dont le nom contient au moins une fois la lettre H
+Contient un P;Arrêt dont le nom contient au moins une fois la lettre P
+Ne contient pas de E;Arrêt dont le nom ne contient pas la lettre E (accentuée ou non)
+Situe dans Nantes;Arrêt situé sur la commune de Nantes
+Sur une autre commune que Nantes;Arrêt situé sur une commune de la métropole autre que Nantes
+Nord Loire;Arrêt situé au Nord de la Loire (Île de Nantes exclue)
+Sud Loire;Arrêt situé au Sud de la Loire (Île de Nantes exclue)
+Ile de Nantes;Arrêt situé précisément sur l'Île de Nantes
+Moins de 1km du peripherique;Arrêt situé à moins de 1km du périphérique (intérieur ou extérieur)
+Moins de 1 km d une riviere;Arrêt situé à moins de 1km d'un cours d'eau (Loire / Erdre / Sèvre Nantaise)
+Moins de 1 km du chateau;Arrêt situé à moins de 1km du Château des Ducs 
+Moins de 1 km de la Tour Bretagne;Arrêt situé à moins de 1km de la Tour Bretagne
+Moins de 2 km hippodrome;Arrêt situé à moins de 2km de l'hippodrome (mesuré depuis son centre)
+Moins de 2 km des machines;Arrêt situé à moins de 2km des nefs de la Compagnie des Machines
+Moins de 3 km du stade de la Beaujoire;Arrêt situé à moins de 3km du Stade de la Beaujoire
