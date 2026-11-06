@@ -43,7 +43,7 @@ intro_text_2 = '''
 
 intro_hints_text = '''
     Vous disposez de **3 indices** par partie afin de vous aider :
-      - Les indices sont disponibles pour toute case comportant 5 solutions ou moins.
+      - Les indices sont disponibles pour toute case comportant **5 solutions ou moins**.
       - Il existe 3 types d'indices, chacun utilisable une seule fois par partie.
       - Il n'est possible d'utiliser **qu'un seul indice** par case.
 '''
