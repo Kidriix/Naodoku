@@ -6,7 +6,7 @@ from constants.css_setup import *
 from constants.dict_lists_setup import *
 
 def show_logo(lines_id):
-   path_logo = [f".images\\indices de ligne_svg_picto_ligne_{line_id}.svg" for line_id in lines_id]
+   path_logo = [f".images/indices de ligne_svg_picto_ligne_{line_id}.svg" for line_id in lines_id]
    st.image(path_logo)
 
 def random_bus_tram_logo():
