@@ -20,59 +20,12 @@ from constants.texts import *
 from constants.svg_images import *
 from constants.css_setup import *
 
-# lines_logos = [
-#     os.path.join(WK_FOLDER, ".images", f"indices de ligne_svg_picto_ligne_{i}.svg")
-#     for i in range(1, 6)
-# ]
-
 max_errors = 3
 
-# stations_names = [" "] + sorted(truth_table["Nom arret"].tolist())
 st.session_state.stations_names = stations_names
 
 if "first_opening" not in st.session_state:
     st.session_state.first_opening = True
-
-# def pick_random_grid(grids, difficulty=None):
-#     if difficulty is not None:
-#       min_bound, up_bound = difficulty_bounds[difficulty]["min"], difficulty_bounds[difficulty]["max"]
-#       filtered_grids = grids[(grids["Score"] >= min_bound) & (grids["Score"] <= up_bound)]
-#     else : 
-#       filtered_grids = grids
-#     a = np.random.randint(len(filtered_grids))
-#     selected_grid = filtered_grids.iloc[int(a)]
-
-#     return selected_grid
-
-# def get_possible_stations(truth_table, crit1, crit2):
-#   possible_list = sorted(truth_table[(truth_table[crit1] == "VRAI") & (truth_table[crit2] == "VRAI")]["Nom arret"].tolist())
-#   return possible_list
-
-# def get_grid_possibilities(truth_table, given_grid):
-#   all_possibilities = {}
-#   for col in col_letters:
-#     col_name = given_grid[f"Criteria {col}"]
-#     for row in row_letters:
-#       row_name = given_grid[f"Criteria {row}"]
-#       poss_list =  get_possible_stations(truth_table, col_name, row_name)
-#       all_possibilities[col+row]=poss_list
-#   return all_possibilities
-
-def show_logo(lines_id):
-   path_logo = [os.path.join(WK_FOLDER, ".images", f"indices de ligne_svg_picto_ligne_{line_id}.svg") for line_id in lines_id]
-   st.image(path_logo)
-
-def random_bus_tram_logo():
-    st.session_state.chosen_svg = TRAM_SVG if np.random.rand() < 0.5 else BUS_SVG
-    st.session_state.logo_svg_b64 = base64.b64encode(st.session_state.chosen_svg.encode("utf-8")).decode("utf-8")
-
-def switch_bus_tram_logo():
-    if st.session_state.chosen_svg == TRAM_SVG:
-      st.session_state.chosen_svg = BUS_SVG
-    else : 
-      st.session_state.chosen_svg = TRAM_SVG
-    st.session_state.logo_svg_b64 = base64.b64encode(st.session_state.chosen_svg.encode("utf-8")).decode("utf-8")
-
 
 if "grid" not in st.session_state:
     st.session_state.grid = pick_random_grid()
@@ -215,33 +168,6 @@ def is_a_hint_used_in_cell(col, row):
       res |= st.session_state.__getattr__(f"hint{hint_idx}_active")[col+row]
    return res
 
-# @st.dialog("Comment ça marche ?")
-# def welcome(explain_hints=False):
-#     tabs_names = ["Règles"]
-#     if explain_hints:
-#        tabs_names.append("Indices")
-#     rules_tabs = st.tabs(tabs_names)
-#     rules_tabs[0].markdown(intro_text_1)
-#     rules_tabs[0].image(lines_logos)
-#     rules_tabs[0].markdown(intro_text_2)
-
-#     if explain_hints:
-#        rules_tabs[1].markdown(intro_hints_text)
-#        with rules_tabs[1].expander("**Première Lettre**"):
-#             st.markdown(hint_1_text)
-#        with rules_tabs[1].expander("**Ligne**"):
-#             st.markdown(hint_2_text)
-#        with rules_tabs[1].expander("**QCM** (**Q**uestion à **C**hoix **M**ultiples)"):
-#             st.markdown(hint_3_text)
-#     st.session_state.first_opening = False
-
-# @st.dialog("Description")
-# def describe_criteria(cell_id):
-#    crit = st.session_state.grid[f"Criteria {grid_ids_to_letters[cell_id]}"]
-#    desc = legend[legend["Nom critere"]==st.session_state.grid[f"Criteria {grid_ids_to_letters[cell_id]}"]]["Description"].tolist()[0]
-#    st.title(f"**{crit}**")
-#    st.markdown(desc)
-
 @st.dialog("Choisir un arrêt")
 def select_station(cell_id):
     col, row = grid_ids_to_letters[cell_id][0], grid_ids_to_letters[cell_id][1]
@@ -376,46 +302,13 @@ def select_difficulty():
    if confirm_cols[1].button("Annuler", key=f"cancel_difficulty"):
     st.rerun()
 
-# --- Config des 16 cases : lesquelles sont cliquables ---
-
-# labels = []
-# for i in range(16):
-#     if i == 0:
-#         labels.append("**NAODOKU**")
-#     elif len(grid_ids_to_letters[i]) == 1:
-#         labels.append(f"**{st.session_state.grid[f"Criteria {grid_ids_to_letters[i]}"]}**")
-#     elif grid_ids_to_letters[i] in st.session_state.user_answers :
-#         labels.append(st.session_state.user_answers[grid_ids_to_letters[i]])
-#     elif st.session_state.end_game : 
-#         labels.append(f"Voir les {len(st.session_state.grid_answers[grid_ids_to_letters[i]])} solutions")
-#     else :
-#         labels.append(f"{len(st.session_state.grid_answers[grid_ids_to_letters[i]])} arrêts possibles")
-
 st.session_state.labels = generate_labels(st.session_state.grid, st.session_state.user_answers, st.session_state.grid_answers, st.session_state.end_game)
 
 uniform_font_size = set_font_size(st.session_state.labels)
 
 cells_colors_css = set_cells_colors(st.session_state.user_answers)
 extra_css += cells_colors_css
-
-# for i in clickable_ids:
-#     col_row = grid_ids_to_letters[i]
-#     if col_row in st.session_state.user_answers:
-#         extra_css += f"""
-#     .st-key-cell_{i} button, .st-key-cell_{i} button:disabled {{
-#         background-color: {color_filled} !important;
-#         color: {color_filled_text} !important;
-#         border: 1px solid {color_filled_border} !important;
-#     }}"""
-#     else:
-#         extra_css += f"""
-#     .st-key-cell_{i} button, .st-key-cell_{i} button:disabled {{
-#         background-color: {color_empty} !important;
-#         color: {color_empty_text} !important;
-#         border: 1px solid {color_empty_border} !important;
-#     }}"""
-        
-
+     
 st.markdown(f"""
 <style>
 :root {{
@@ -528,9 +421,7 @@ for row in range(5):
         metrics_container = st.container()
         metrics_cols = metrics_container.columns(2)
         metrics_cols[0].markdown(f'''**Difficulté :** {st.session_state.grid_difficulty} / 5''')
-        #cols[0].markdown(f"{st.session_state.grid_difficulty} / 5")
         metrics_cols[1].markdown(f'''**Indices :** {st.session_state.nb_hints_left} / 3''')
-        #cols[1].markdown(f"")
         st.divider()
     else :
         for col_idx in range(4):
