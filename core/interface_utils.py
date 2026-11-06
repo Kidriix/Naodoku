@@ -1,12 +1,14 @@
 import streamlit as st
 import base64
 import numpy as np
+import os
 from constants.svg_images import *
 from constants.css_setup import *
 from constants.dict_lists_setup import *
+from constants.ref_path_files import *
 
 def show_logo(lines_id):
-   path_logo = [f".images/indices de ligne_svg_picto_ligne_{line_id}.svg" for line_id in lines_id]
+   path_logo = [os.path.join(WK_FOLDER, ".images", f"indices de ligne_svg_picto_ligne_{line_id}.svg" for line_id in lines_id]
    st.image(path_logo)
 
 def random_bus_tram_logo():
