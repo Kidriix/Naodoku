@@ -8,7 +8,7 @@ from constants.dict_lists_setup import *
 from constants.ref_files_paths import *
 
 def show_logo(lines_id):
-   path_logo = [os.path.join(WK_FOLDER, ".images", f"indices de ligne_svg_picto_ligne_{line_id}.svg" for line_id in lines_id]
+   path_logo = [os.path.join(WK_FOLDER, ".images", f"indices de ligne_svg_picto_ligne_{line_id}.svg") for line_id in lines_id]
    st.image(path_logo)
 
 def random_bus_tram_logo():
