@@ -404,6 +404,8 @@ if st.session_state.first_opening:
     welcome()
     st.session_state.first_opening = False
 
+st.image(os.path.join(WK_FOLDER, ".images", "naodoku.png"))
+
 for row in range(5):
     cols = st.columns(4, gap="small")
     if row == 0:
