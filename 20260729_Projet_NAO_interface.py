@@ -401,7 +401,7 @@ div[data-testid="stButton"] > button {{
     overflow: hidden;
     line-height: 1.1;
     white-space: normal;
-    word-break: break-word;
+    word-break: normal;
     overflow-wrap: break-word;
     hyphens: auto;
     cursor: pointer;
