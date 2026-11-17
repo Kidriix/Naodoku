@@ -8,14 +8,18 @@ from constants.dict_lists_setup import *
 from constants.ref_files_paths import *
 
 def show_logo(lines_id):
-   path_logo = [os.path.join(WK_FOLDER, ".images", f"indices de ligne_svg_picto_ligne_{line_id}.svg") for line_id in lines_id]
+   path_logo = [os.path.join(IMAGES_FOLDER, "lines_icons", f"indices de ligne_svg_picto_ligne_{line_id}.svg") for line_id in lines_id]
    st.image(path_logo)
 
-def random_bus_tram_logo():
-    st.session_state.chosen_svg = TRAM_SVG if np.random.rand() < 0.5 else BUS_SVG
+def random_logo():
+    temp_logo_list = svg_logos_list.copy()
+    if "chosen_svg" in st.session_state:
+        temp_logo_list.remove(st.session_state.chosen_svg)
+    st.session_state.chosen_svg = str(np.random.choice(temp_logo_list, 1)[0])
     st.session_state.logo_svg_b64 = base64.b64encode(st.session_state.chosen_svg.encode("utf-8")).decode("utf-8")
+    del temp_logo_list
 
-def switch_bus_tram_logo():
+def switch_logo():
     if st.session_state.chosen_svg == TRAM_SVG:
       st.session_state.chosen_svg = BUS_SVG
     else : 
