@@ -8,6 +8,7 @@ import os
 from datetime import datetime
 import base64
 import requests
+import copy
 
 from core.airtable import *
 from core.dialogs import *
@@ -34,11 +35,17 @@ if "grid" not in st.session_state:
 if "grid_answers" not in st.session_state:  
     st.session_state.grid_answers = get_grid_possibilities(st.session_state.grid)
 
+if "remaining_answers" not in st.session_state:  
+    st.session_state.remaining_answers = copy.deepcopy(st.session_state.grid_answers)
+
 if "stations_options" not in st.session_state:
-    st.session_state.stations_options = st.session_state.stations_names
+    st.session_state.stations_options = copy.deepcopy(st.session_state.stations_names)
 
 if "user_answers" not in st.session_state:
     st.session_state.user_answers = {}
+
+if "unsolvable_cells" not in st.session_state:
+   st.session_state.unsolvable_cells = []
 
 if "errors" not in st.session_state:
     st.session_state.errors = 0
@@ -50,7 +57,7 @@ if "last_clicked" not in st.session_state:
     st.session_state["last_clicked"] = None
 
 if "clickable_ids" not in st.session_state:
-    st.session_state.clickable_ids = clickable_ids.copy()
+    st.session_state.clickable_ids = copy.deepcopy(clickable_ids)
 
 if "result_saved" not in st.session_state:
     st.session_state.result_saved = False
@@ -62,19 +69,23 @@ if "game_start_time" not in st.session_state:
     st.session_state.game_start_time = time.time()
 
 if "logo_svg_b64" not in st.session_state:
-    random_bus_tram_logo()
+    random_logo()
 
 if "nb_hints_left" not in st.session_state:
    st.session_state.nb_hints_left = 3
 
 if "hint1_active" not in st.session_state:
-   st.session_state.hint1_active = default_hints_state.copy()
+   st.session_state.hint1_active = copy.deepcopy(default_hints_state)
 
 if "hint2_active" not in st.session_state:
-   st.session_state.hint2_active = default_hints_state.copy()
+   st.session_state.hint2_active = copy.deepcopy(default_hints_state)
 
 if "hint3_active" not in st.session_state:
-   st.session_state.hint3_active = default_hints_state.copy()
+   st.session_state.hint3_active = copy.deepcopy(default_hints_state)
+
+if "transport_logos" not in st.session_state:
+   st.session_state.transport_logos = copy.deepcopy(svg_logos_list)
+   np.random.shuffle(st.session_state.transport_logos)
 
 def launch_new_game(difficulty=None):
   st.session_state.grid = pick_random_grid(difficulty)
@@ -82,80 +93,88 @@ def launch_new_game(difficulty=None):
   st.session_state.end_game = False
   st.session_state.user_answers = {}
   st.session_state.grid_answers = get_grid_possibilities(st.session_state.grid)
+  st.session_state.remaining_answers = copy.deepcopy(st.session_state.grid_answers)
+  st.session_state.unsolvable_cells = []
   st.session_state.errors = 0
-  st.session_state.clickable_ids = clickable_ids.copy()
-  st.session_state.stations_options = st.session_state.stations_names
+  st.session_state.clickable_ids = copy.deepcopy(clickable_ids)
+  st.session_state.stations_options = copy.deepcopy(st.session_state.stations_names)
   st.session_state.game_duration = 0
   st.session_state.game_start_time = time.time()
   st.session_state.result_saved = False
   st.session_state.nb_hints_left = 3
-  st.session_state.hint1_active = default_hints_state.copy()
-  st.session_state.hint2_active = default_hints_state.copy()
-  st.session_state.hint3_active = default_hints_state.copy()
-  random_bus_tram_logo()
+  st.session_state.hint1_active = copy.deepcopy(default_hints_state)
+  st.session_state.hint2_active = copy.deepcopy(default_hints_state)
+  st.session_state.hint3_active = copy.deepcopy(default_hints_state)
+  st.session_state.transport_logos = copy.deepcopy(svg_logos_list)
+  np.random.shuffle(st.session_state.transport_logos)
+  random_logo()
   st.rerun()
 
 def reload_same_game():
   st.session_state.user_answers = {}
   st.session_state.errors = 0
   st.session_state.end_game = False
-  st.session_state.clickable_ids = clickable_ids.copy()
-  st.session_state.stations_options = st.session_state.stations_names
+  st.session_state.clickable_ids = copy.deepcopy(clickable_ids)
+  st.session_state.stations_options = copy.deepcopy(st.session_state.stations_names)
+  st.session_state.remaining_answers = copy.deepcopy(st.session_state.grid_answers)
+  st.session_state.unsolvable_cells = []
   st.session_state.game_duration = 0
   st.session_state.game_start_time = time.time()
   st.session_state.result_saved = False
   st.session_state.nb_hints_left = 3
-  st.session_state.hint1_active = default_hints_state.copy()
-  st.session_state.hint2_active = default_hints_state.copy()
-  st.session_state.hint3_active = default_hints_state.copy()
-  random_bus_tram_logo()
+  st.session_state.hint1_active = copy.deepcopy(default_hints_state)
+  st.session_state.hint2_active = copy.deepcopy(default_hints_state)
+  st.session_state.hint3_active = copy.deepcopy(default_hints_state)
+  st.session_state.transport_logos = copy.deepcopy(svg_logos_list)
+  np.random.shuffle(st.session_state.transport_logos)
+  random_logo()
   st.rerun()
 
 def give_up():
   st.session_state.end_game = True
-  st.session_state.clickable_ids = clickable_ids.copy()
+  st.session_state.clickable_ids = copy.deepcopy(clickable_ids)
   st.rerun()
 
-def save_result_airtable(grid, user_answers, duration):
-    try:
-        stats = {}
-        for letter_id in col_letters + row_letters:
-            stats[f"Critere {letter_id}"] = st.session_state.grid[f"Criteria {letter_id}"]
-        for col_id in col_letters:
-            for row_id in row_letters:
-                if col_id+row_id in st.session_state.user_answers:
-                    stats[f"Arret {col_id+row_id}"] = st.session_state.user_answers[col_id+row_id]
-                else : 
-                    stats[f"Arret {col_id+row_id}"] = "Non renseigné"
-        stats["Temps"] = str(st.session_state.game_duration)
+# def save_result_airtable(grid, user_answers, duration):
+#     try:
+#         stats = {}
+#         for letter_id in col_letters + row_letters:
+#             stats[f"Critere {letter_id}"] = st.session_state.grid[f"Criteria {letter_id}"]
+#         for col_id in col_letters:
+#             for row_id in row_letters:
+#                 if col_id+row_id in st.session_state.user_answers:
+#                     stats[f"Arret {col_id+row_id}"] = st.session_state.user_answers[col_id+row_id]
+#                 else : 
+#                     stats[f"Arret {col_id+row_id}"] = "Non renseigné"
+#         stats["Temps"] = str(st.session_state.game_duration)
         
-        data = {
-            "fields": stats
-        }
+#         data = {
+#             "fields": stats
+#         }
 
-        response = requests.post(get_airtable_url(), headers=get_airtable_headers(), json=data, timeout=5)
-        if response.status_code != 200:
-            st.toast("⚠️ Le résultat n'a pas pu être enregistré.", icon="⚠️")
-        return response.status_code == 200
-    except Exception as e:
-        st.toast("⚠️ Le résultat n'a pas pu être enregistré.", icon="⚠️")
-        return False
+#         response = requests.post(get_airtable_url(), headers=get_airtable_headers(), json=data, timeout=5)
+#         if response.status_code != 200:
+#             st.toast("⚠️ Le résultat n'a pas pu être enregistré.", icon="⚠️")
+#         return response.status_code == 200
+#     except Exception as e:
+#         st.toast("⚠️ Le résultat n'a pas pu être enregistré.", icon="⚠️")
+#         return False
 
-def save_game_stats(grid, user_answers, duration):
-    stats = {}
-    for letter_id in col_letters + row_letters:
-       stats[f"Critere {letter_id}"] = st.session_state.grid[f"Criteria {letter_id}"]
-    for col_id in col_letters:
-       for row_id in row_letters:
-          stats[f"Arret {col_id+row_id}"] = st.session_state.user_answers[col_id+row_id]
+# def save_game_stats(grid, user_answers, duration):
+#     stats = {}
+#     for letter_id in col_letters + row_letters:
+#        stats[f"Critere {letter_id}"] = st.session_state.grid[f"Criteria {letter_id}"]
+#     for col_id in col_letters:
+#        for row_id in row_letters:
+#           stats[f"Arret {col_id+row_id}"] = st.session_state.user_answers[col_id+row_id]
     
-    stats["Temps"] = str(st.session_state.game_duration)
+#     stats["Temps"] = str(st.session_state.game_duration)
     
-    stats_cols = [f"Critere {i}" for i in col_letters+row_letters] + [f"Arret {col_id+row_id}" for col_id in col_letters for row_id in row_letters] + ["Temps"]
+#     stats_cols = [f"Critere {i}" for i in col_letters+row_letters] + [f"Arret {col_id+row_id}" for col_id in col_letters for row_id in row_letters] + ["Temps"]
     
-    stats_df = pd.DataFrame([stats], columns=stats_cols, dtype=str)
+#     stats_df = pd.DataFrame([stats], columns=stats_cols, dtype=str)
     
-    stats_df.to_csv(stats_save_file, sep=";", mode="a", encoding="utf-8", header=False, index=False)
+#     stats_df.to_csv(stats_save_file, sep=";", mode="a", encoding="utf-8", header=False, index=False)
 
 def is_hint_used_in_grid(hint_number):
    # Checks if hint no i has already been used in the grid 
@@ -173,8 +192,8 @@ def select_station(cell_id):
     col, row = grid_ids_to_letters[cell_id][0], grid_ids_to_letters[cell_id][1]
     crit_col = st.session_state.grid[f"Criteria {col}"]
     crit_row = st.session_state.grid[f"Criteria {row}"]
-    st.markdown(f"Sélectionner un arrêt vérifiant **{crit_col}** et **{crit_row}**")
-    if len(st.session_state.grid_answers[col+row]) <= 5:
+    st.markdown(f"Sélectionner un arrêt vérifiant **{add_line_emoji(crit_col)}** et **{add_line_emoji(crit_row)}**")
+    if len(st.session_state.remaining_answers[col+row]) <= 5:
         hint_expander = st.expander(f"Utiliser un indice ? ({st.session_state.nb_hints_left} restants)")
         hint_tabs = hint_expander.tabs(["Première lettre", "Ligne", "QCM"])
         
@@ -196,23 +215,31 @@ def select_station(cell_id):
             st.session_state.nb_hints_left -= 1
             st.session_state.hint2_active[col+row] = True
         if st.session_state.hint2_active[col+row] == True :
-            for (i,station) in enumerate(st.session_state.grid_answers[col+row]):
+            for (i,station) in enumerate(st.session_state.remaining_answers[col+row]):
                 with hint_tabs[1].container(border=True, key="hint2_container_"+col+row+str(i)):
-                    show_logo(get_lines_from_station(station))
+                    lines = get_lines_from_station(station)
+                    if len(lines) == 1:
+                        body = "Ligne " + lines_emojis_list[int(lines[0])-1]
+                    elif len(lines) ==2 :
+                        body = "Lignes " + lines_emojis_list[int(lines[0])-1] + " et "+ lines_emojis_list[int(lines[1])-1]
+                    else :
+                        body = "Lignes " + lines_emojis_list[int(lines[0])-1] + " , "+ lines_emojis_list[int(lines[1])-1] + " et "+ lines_emojis_list[int(lines[2])-1]
+                    st.markdown(body)
         
         hint_tabs[2].markdown(''' 
             1 seul arrêt correct parmi 4 au choix :
         ''')
-        hint_mcq_list = multiple_choice_question(col+row, st.session_state.grid_answers, st.session_state.user_answers, st.session_state.stations_options)
+
         if hint_tabs[2].button("Utiliser l'indice", key="hint3_button"+col+row, disabled=((st.session_state.nb_hints_left <= 0) | (is_a_hint_used_in_cell(col, row)) | is_hint_used_in_grid(3))):
             st.session_state.nb_hints_left -= 1
             st.session_state.hint3_active[col+row] = True
+            st.session_state.hint_mcq_list = multiple_choice_question(col+row, st.session_state.grid_answers, st.session_state.user_answers, st.session_state.stations_options)
         if st.session_state.hint3_active[col+row] == True :
-            for (i,station) in enumerate(hint_mcq_list):
+            for (i,station) in enumerate(st.session_state.hint_mcq_list):
                 with hint_tabs[2].container(border=True, key="hint3_container_"+col+row+str(i)):
                     st.markdown(station)
         
-    station = st.selectbox(label=f"{len(st.session_state.grid_answers[col+row])} arrêts possibles", options=st.session_state.stations_options, key=col+row)
+    station = st.selectbox(label=f"{len(st.session_state.remaining_answers[col+row])} arrêts possibles", options=st.session_state.stations_options, key=col+row)
     stop_cols = st.columns(2)
     if stop_cols[0].button("Valider", type="primary", key=f"valider_{col+row}"):
       if station == " ":
@@ -220,8 +247,13 @@ def select_station(cell_id):
       else:
         if is_cell_okay(crit_col, crit_row, station):
             st.session_state.user_answers[col+row] = station
+            for c in col_letters:
+               for r in row_letters:
+                    if station in st.session_state.remaining_answers[c+r]:
+                        st.session_state.remaining_answers[c+r].remove(station)
             st.session_state.stations_options.remove(station)
             st.session_state.clickable_ids.remove(cell_id)
+            st.session_state.unsolvable_cells = update_unsolvable_cells(st.session_state.remaining_answers, st.session_state.user_answers)
         else :
             st.session_state.errors += 1
         st.rerun()
@@ -246,10 +278,15 @@ def bravo():
   st.session_state.clickable_ids = clickable_ids.copy()
   st.markdown(f'''
   Grille complétée en **{time.gmtime(st.session_state.game_duration).tm_min} min** et **{time.gmtime(st.session_state.game_duration).tm_sec} s**
+  
+  **Nombre d'erreurs** : {st.session_state.errors}
+
   **Nombre d'indices utilisés** : {3-st.session_state.nb_hints_left}
+  
   Bravo !
   
   ''')
+  st.image(transport_logos, width=30)
   win_cols = st.columns(4)
   if win_cols[0].button("Nouvelle grille", key="new_grid_replay_win", type="primary"):
     launch_new_game()
@@ -262,8 +299,16 @@ def bravo():
     st.balloons()
 
 @st.dialog("Dommage...")
-def you_lose():
-  st.markdown(you_lose_text)
+def you_lose(end_type):
+  if end_type == "errors":
+     text = you_lose_text_errors
+     st.markdown(text)
+  elif end_type == "zero_answer_cell":
+     st.markdown(you_lose_text_zero_answer_cell)
+     for (cell_code) in st.session_state.unsolvable_cells:
+        col, row = cell_code[0], cell_code[1]
+        st.markdown(f"**{add_line_emoji(st.session_state.grid[f"Criteria {col}"])}** et **{add_line_emoji(st.session_state.grid[f"Criteria {row}"])}**")
+  
   lose_cols = st.columns(3)
   if lose_cols[0].button("Nouvelle grille", key="new_grid_replay_lose"):
     launch_new_game()
@@ -302,7 +347,7 @@ def select_difficulty():
    if confirm_cols[1].button("Annuler", key=f"cancel_difficulty"):
     st.rerun()
 
-st.session_state.labels = generate_labels(st.session_state.grid, st.session_state.user_answers, st.session_state.grid_answers, st.session_state.end_game)
+st.session_state.labels = generate_labels(st.session_state.grid, st.session_state.user_answers, st.session_state.grid_answers, st.session_state.remaining_answers, st.session_state.end_game)
 
 uniform_font_size = set_font_size(st.session_state.labels)
 
@@ -389,27 +434,19 @@ div[data-testid="stButton"] > button:disabled {{
 </style>
 """, unsafe_allow_html=True)
 
-# sb = st.sidebar
-# sb.markdown("Menu")
-# if sb.button("**Règles**", key="menu_rules_sb"):
-#     welcome()
-# if sb.button("Générer une nouvelle grille", icon="➕", key="new_grid_reset_sb"):
-#     select_difficulty()
-# if sb.button("Réinitialiser la grille", icon="🔁", key="same_grid_reset_sb"):
-#     are_you_sure("Réinitialiser la grille", reload_same_game)
-# if sb.button("Abandonner et voir les résultats", icon="❌" , key="give_up_sb", disabled=st.session_state.end_game):
-#     are_you_sure("Abandonner et voir les résultats", give_up)
-
 if st.session_state.first_opening:
     welcome()
     st.session_state.first_opening = False
 
-st.image(os.path.join(WK_FOLDER, ".images", "naodoku.png"))
+st.image(os.path.join(WK_FOLDER, ".images", "naodoku.svg"))
 
 for row in range(5):
     cols = st.columns(4, gap="small")
     if row == 0:
-        menu_expander = st.expander("**Menu**", icon="⚙️")
+        menu_cont = st.container(horizontal_alignment="center")
+        menu_expander = menu_cont.expander("**Menu**", icon="⚙️", width=480)
+        # menu_cont = st.container()
+        # menu_expander = menu_cont.expander("**Menu**", icon="⚙️")
         menu_cols = menu_expander.columns(4, gap="small")
         if menu_cols[0].button("**Règles et Indices**", key="menu_rules"):
             welcome(explain_hints=True)
@@ -434,7 +471,7 @@ for row in range(5):
                     if i in criteria_ids:
                        describe_criteria(i)
                     elif i == 0:
-                       switch_bus_tram_logo()
+                       random_logo()
                     else :
                         if st.session_state.end_game:
                             check_answers(i)
@@ -452,6 +489,9 @@ if cols[2].button(errors_labels[1], key="2nd_error", disabled=True):
 if cols[3].button(errors_labels[2], key="3rd_error", disabled=True):
     pass
 
+for i in range(4):
+   cols[i].image(st.session_state.transport_logos[int(2*i):int(2*(i+1))],  width=50)
+
 def switch_to_endgame_mode():
     st.session_state.end_game = True
     st.session_state.game_duration = time.time() - st.session_state.game_start_time
@@ -459,11 +499,16 @@ def switch_to_endgame_mode():
         save_result_airtable(st.session_state.grid, st.session_state.user_answers, st.session_state.game_duration)
         st.session_state.result_saved = True
 
+def is_it_endgame(user_answers, errors, unsolvables):
+   if len(user_answers) == 9:
+      switch_to_endgame_mode()
+      bravo()
+   elif errors == max_errors:
+      switch_to_endgame_mode()
+      you_lose(end_type = "errors") 
+   elif unsolvables :
+      switch_to_endgame_mode()
+      you_lose(end_type = "zero_answer_cell")
 
-if (len(st.session_state.user_answers) == 9) & (not st.session_state.end_game):
-  switch_to_endgame_mode()
-  bravo()
-
-if (st.session_state.errors == max_errors) & (not st.session_state.end_game):
-  switch_to_endgame_mode()
-  you_lose()
+if not st.session_state.end_game:
+   is_it_endgame(st.session_state.user_answers, st.session_state.errors, st.session_state.unsolvable_cells)
