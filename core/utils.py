@@ -4,6 +4,7 @@ import streamlit as st
 from constants.dict_lists_setup import *
 import random
 from constants.ref_files_paths import *
+from core.interface_utils import *
 
 # ------------------ Grid setup --------------------------
 def pick_random_grid(difficulty=None):
@@ -39,23 +40,34 @@ def is_cell_okay(crit_col, crit_row, cell):
   else : 
      return False
   
-def generate_labels(grid, user_answers, grid_answers, end_game):
+def generate_labels(grid, user_answers, grid_answers, remaining_answers, end_game):
     labels = []
     for i in range(16):
         if i == 0:
             labels.append("**NAODOKU**")
         elif len(grid_ids_to_letters[i]) == 1:
-            labels.append(f"**{grid[f"Criteria {grid_ids_to_letters[i]}"]}**")
+            crit_label = grid[f"Criteria {grid_ids_to_letters[i]}"]
+            crit_label = add_line_emoji(crit_label)
+            labels.append(f"**{crit_label}**")
         elif grid_ids_to_letters[i] in user_answers :
             labels.append(user_answers[grid_ids_to_letters[i]])
         elif end_game : 
             labels.append(f"Voir les {len(grid_answers[grid_ids_to_letters[i]])} solutions")
         else :
-            labels.append(f"{len(grid_answers[grid_ids_to_letters[i]])} arrêts possibles")
+            labels.append(f"{len(remaining_answers[grid_ids_to_letters[i]])} arrêts possibles")
     return labels
 
+def add_line_emoji(crit):
+   if "Sur la ligne" in crit:
+        res = crit[:-2] + f" {lines_emojis_list[int(crit[-1]) - 1]}"
+   else :
+        res = crit
+   return res
 
 
+def update_unsolvable_cells(remaining_answers, user_answers):
+   unsolvable_cells = [key for key in answer_cells_letters if (remaining_answers[key] == []) & ( key not in user_answers)]
+   return unsolvable_cells
 
 # ------------------ Hints functions ---------------
 # Hint 1
@@ -85,6 +97,7 @@ def get_lines_from_station(station):
 # Hint 3
 def multiple_choice_question(cell, solutions, user_answers, all_stations_names):
     cell_solutions = solutions[cell]
+    remaining_solutions = [stop for stop in cell_solutions if (stop not in user_answers)]
     crit1, crit2 = st.session_state.grid[f"Criteria {list(cell)[0]}"], st.session_state.grid[f"Criteria {list(cell)[1]}"]
     remaining_stops = [stop for stop in all_stations_names if ((stop not in cell_solutions) & (stop not in user_answers) & (stop != " "))]
     stop_crit1 = [stop for stop in remaining_stops if truth_table[truth_table["Nom arret"] == stop][crit1].reset_index(drop=True)[0]  == "VRAI"]
@@ -92,8 +105,9 @@ def multiple_choice_question(cell, solutions, user_answers, all_stations_names):
     other_stops = stop_crit1 + stop_crit2
     false_idx = np.random.choice(len(other_stops), 3, replace=False)
     false_stops = [other_stops[int(idx)] for idx in false_idx]
-    true_idx = np.random.randint(len(cell_solutions))
-    true_stop = [cell_solutions[int(true_idx)]]
+
+    true_idx = np.random.randint(len(remaining_solutions))
+    true_stop = [remaining_solutions[int(true_idx)]]
     res_list = false_stops+true_stop
     random.shuffle(res_list)
     return res_list
