@@ -18,13 +18,17 @@ La méthode ne prend pas en compte le contenu des critères des cases, qui jouen
 '''
 
 you_lose_text_errors = '''
-  Dommage : 3 erreurs, c'est perdu
+  3 erreurs, c'est perdu :(
   '''
 
 you_lose_text_zero_answer_cell = '''
   C'est perdu :(
   
   Toutes les solutions des cases suivantes ont été épuisées (utilisées ailleurs):
+'''
+
+thanks_text = '''
+  Merci d'avoir joué !
 '''
 
 intro_text_1 = f'''
