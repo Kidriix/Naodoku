@@ -16,8 +16,7 @@ def welcome(explain_hints=False):
        tabs_names.append("Indices")
     rules_tabs = st.tabs(tabs_names)
     rules_tabs[0].markdown(intro_text_1)
-    rules_tabs[0].image(svg_logos_list, width=min(50, int(np.floor(st.session_state.width/10))))
-
+    
     if explain_hints:
        rules_tabs[1].markdown(intro_hints_text)
        with rules_tabs[1].expander("**Première Lettre**"):
@@ -26,6 +25,8 @@ def welcome(explain_hints=False):
             st.markdown(hint_2_text)
        with rules_tabs[1].expander("**QCM** (**Q**uestion à **C**hoix **M**ultiples)"):
             st.markdown(hint_3_text)
+           
+    st.image(svg_logos_list, width=min(50, int(np.floor(st.session_state.width/10))))
     st.session_state.first_opening = False
 
 @st.dialog("Description")
