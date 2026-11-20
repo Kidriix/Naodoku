@@ -369,13 +369,22 @@ div[data-testid="stButton"] > button {{
     text-align: center;
     overflow: hidden;
     line-height: 1.1;
-    white-space: normal;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
+    white-space: normal !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+    hyphens: none !important;
     cursor: pointer;
     transition: transform 0.1s ease, background-color 0.15s ease;
 }}
+
+div[data-testid="stButton"] > button p {{
+    white-space: normal !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+    hyphens: none !important;
+    margin: 0 !important;
+}}
+
 div[data-testid="stButton"] > button:hover {{
     background-color: #b8cdfa;
 }}
