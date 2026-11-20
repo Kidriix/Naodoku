@@ -1,6 +1,5 @@
 pandas
 numpy
-request
 streamlit
 altair
 streamlit-js-eval
