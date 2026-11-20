@@ -9,6 +9,8 @@ from datetime import datetime
 import base64
 import requests
 import copy
+from streamlit_js_eval import streamlit_js_eval
+from time import sleep
 
 from core.airtable import *
 from core.dialogs import *
@@ -21,9 +23,13 @@ from constants.texts import *
 from constants.svg_images import *
 from constants.css_setup import *
 
+
 max_errors = 3
 
 st.session_state.stations_names = stations_names
+
+if "width" not in st.session_state:
+    once_set_layout()
 
 if "first_opening" not in st.session_state:
     st.session_state.first_opening = True
@@ -286,7 +292,9 @@ def bravo():
   Bravo !
   
   ''')
-  st.image(transport_logos, width=30)
+  st.markdown(thanks_text)
+  
+  st.image(st.session_state.transport_logos, width=max(30, int(np.floor(st.session_state.width/12))))
   win_cols = st.columns(4)
   if win_cols[0].button("Nouvelle grille", key="new_grid_replay_win", type="primary"):
     launch_new_game()
@@ -298,7 +306,7 @@ def bravo():
   if win_cols[3].button("Ballons :)", key="balloons_win"):
     st.balloons()
 
-@st.dialog("Dommage...")
+@st.dialog("Perdu :(")
 def you_lose(end_type):
   if end_type == "errors":
      text = you_lose_text_errors
@@ -308,6 +316,8 @@ def you_lose(end_type):
      for (cell_code) in st.session_state.unsolvable_cells:
         col, row = cell_code[0], cell_code[1]
         st.markdown(f"**{add_line_emoji(st.session_state.grid[f"Criteria {col}"])}** et **{add_line_emoji(st.session_state.grid[f"Criteria {row}"])}**")
+  st.markdown(thanks_text)
+  st.image(st.session_state.transport_logos, width=max(30, int(np.floor(st.session_state.width/12))))
   
   lose_cols = st.columns(3)
   if lose_cols[0].button("Nouvelle grille", key="new_grid_replay_lose"):
@@ -400,22 +410,13 @@ div[data-testid="stButton"] > button {{
     text-align: center;
     overflow: hidden;
     line-height: 1.1;
-    white-space: normal !important;
-    word-break: keep-all !important;
-    overflow-wrap: normal !important;
-    hyphens: none !important;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
     cursor: pointer;
     transition: transform 0.1s ease, background-color 0.15s ease;
 }}
-
-div[data-testid="stButton"] > button p {{
-    white-space: normal !important;
-    word-break: keep-all !important;
-    overflow-wrap: normal !important;
-    hyphens: none !important;
-    margin: 0 !important;
-}}
-
 div[data-testid="stButton"] > button:hover {{
     background-color: #b8cdfa;
 }}
@@ -452,10 +453,10 @@ st.image(os.path.join(WK_FOLDER, ".images", "naodoku.svg"))
 for row in range(5):
     cols = st.columns(4, gap="small")
     if row == 0:
-        menu_cont = st.container(horizontal_alignment="center")
-        menu_expander = menu_cont.expander("**Menu**", icon="⚙️", width=480)
-        # menu_cont = st.container()
-        # menu_expander = menu_cont.expander("**Menu**", icon="⚙️")
+        # menu_cont = st.container(horizontal_alignment="center")
+        # menu_expander = menu_cont.expander("**Menu**", icon="⚙️", width=480)
+        menu_cont = st.container()
+        menu_expander = menu_cont.expander("**Menu**", icon="⚙️")
         menu_cols = menu_expander.columns(4, gap="small")
         if menu_cols[0].button("**Règles et Indices**", key="menu_rules"):
             welcome(explain_hints=True)
@@ -499,7 +500,7 @@ if cols[3].button(errors_labels[2], key="3rd_error", disabled=True):
     pass
 
 for i in range(4):
-   cols[i].image(st.session_state.transport_logos[int(2*i):int(2*(i+1))],  width=50)
+   cols[i].image(st.session_state.transport_logos[int(2*i):int(2*(i+1))],  width=max(50, int(np.floor(st.session_state.width/10))))
 
 def switch_to_endgame_mode():
     st.session_state.end_game = True
@@ -521,3 +522,15 @@ def is_it_endgame(user_answers, errors, unsolvables):
 
 if not st.session_state.end_game:
    is_it_endgame(st.session_state.user_answers, st.session_state.errors, st.session_state.unsolvable_cells)
+
+# if (len(st.session_state.user_answers) == 9) & (not st.session_state.end_game):
+#   switch_to_endgame_mode()
+#   bravo()
+
+# if (st.session_state.errors == max_errors) & (not st.session_state.end_game):
+#   switch_to_endgame_mode()
+#   you_lose(end_type = "errors")
+
+# if ([] in st.session_state.remaining_answers.values()) & (not st.session_state.end_game):
+#   switch_to_endgame_mode()
+#   you_lose(end_type = "zero_answer_cell")
