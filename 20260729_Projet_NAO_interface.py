@@ -141,47 +141,6 @@ def give_up():
   st.session_state.clickable_ids = copy.deepcopy(clickable_ids)
   st.rerun()
 
-# def save_result_airtable(grid, user_answers, duration):
-#     try:
-#         stats = {}
-#         for letter_id in col_letters + row_letters:
-#             stats[f"Critere {letter_id}"] = st.session_state.grid[f"Criteria {letter_id}"]
-#         for col_id in col_letters:
-#             for row_id in row_letters:
-#                 if col_id+row_id in st.session_state.user_answers:
-#                     stats[f"Arret {col_id+row_id}"] = st.session_state.user_answers[col_id+row_id]
-#                 else : 
-#                     stats[f"Arret {col_id+row_id}"] = "Non renseigné"
-#         stats["Temps"] = str(st.session_state.game_duration)
-        
-#         data = {
-#             "fields": stats
-#         }
-
-#         response = requests.post(get_airtable_url(), headers=get_airtable_headers(), json=data, timeout=5)
-#         if response.status_code != 200:
-#             st.toast("⚠️ Le résultat n'a pas pu être enregistré.", icon="⚠️")
-#         return response.status_code == 200
-#     except Exception as e:
-#         st.toast("⚠️ Le résultat n'a pas pu être enregistré.", icon="⚠️")
-#         return False
-
-# def save_game_stats(grid, user_answers, duration):
-#     stats = {}
-#     for letter_id in col_letters + row_letters:
-#        stats[f"Critere {letter_id}"] = st.session_state.grid[f"Criteria {letter_id}"]
-#     for col_id in col_letters:
-#        for row_id in row_letters:
-#           stats[f"Arret {col_id+row_id}"] = st.session_state.user_answers[col_id+row_id]
-    
-#     stats["Temps"] = str(st.session_state.game_duration)
-    
-#     stats_cols = [f"Critere {i}" for i in col_letters+row_letters] + [f"Arret {col_id+row_id}" for col_id in col_letters for row_id in row_letters] + ["Temps"]
-    
-#     stats_df = pd.DataFrame([stats], columns=stats_cols, dtype=str)
-    
-#     stats_df.to_csv(stats_save_file, sep=";", mode="a", encoding="utf-8", header=False, index=False)
-
 def is_hint_used_in_grid(hint_number):
    # Checks if hint no i has already been used in the grid 
    hint_status = st.session_state.__getattr__(f"hint{hint_number}_active")
@@ -453,10 +412,10 @@ st.image(os.path.join(WK_FOLDER, ".images", "naodoku.svg"))
 for row in range(5):
     cols = st.columns(4, gap="small")
     if row == 0:
-        # menu_cont = st.container(horizontal_alignment="center")
-        # menu_expander = menu_cont.expander("**Menu**", icon="⚙️", width=480)
-        menu_cont = st.container()
-        menu_expander = menu_cont.expander("**Menu**", icon="⚙️")
+        menu_cont = st.container(horizontal_alignment="center")
+        menu_expander = menu_cont.expander("**Menu**", icon="⚙️", width=480)
+        #menu_cont = st.container()
+        #menu_expander = menu_cont.expander("**Menu**", icon="⚙️")
         menu_cols = menu_expander.columns(4, gap="small")
         if menu_cols[0].button("**Règles et Indices**", key="menu_rules"):
             welcome(explain_hints=True)
@@ -522,15 +481,3 @@ def is_it_endgame(user_answers, errors, unsolvables):
 
 if not st.session_state.end_game:
    is_it_endgame(st.session_state.user_answers, st.session_state.errors, st.session_state.unsolvable_cells)
-
-# if (len(st.session_state.user_answers) == 9) & (not st.session_state.end_game):
-#   switch_to_endgame_mode()
-#   bravo()
-
-# if (st.session_state.errors == max_errors) & (not st.session_state.end_game):
-#   switch_to_endgame_mode()
-#   you_lose(end_type = "errors")
-
-# if ([] in st.session_state.remaining_answers.values()) & (not st.session_state.end_game):
-#   switch_to_endgame_mode()
-#   you_lose(end_type = "zero_answer_cell")
