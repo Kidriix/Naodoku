@@ -2,10 +2,34 @@ import streamlit as st
 import base64
 import numpy as np
 import os
+from streamlit_js_eval import streamlit_js_eval
+from time import sleep
+
 from constants.svg_images import *
 from constants.css_setup import *
 from constants.dict_lists_setup import *
 from constants.ref_files_paths import *
+
+def check_layout():
+    '''With JS evaluation script, gets the width and height of the device.
+    Sleep a little to get the values from JS.
+    Then define a layout state depending on which is bigger.
+    '''
+    width = streamlit_js_eval(js_expressions='window.innerWidth')
+    height = streamlit_js_eval(js_expressions='screen.height')
+    sleep(1)
+        
+    if width is not None and height is not None:
+        st.session_state.width = width
+        st.session_state.height = height
+
+def once_set_layout():
+    '''Search for the device layout and rerun once set.
+    '''
+    if 'width' not in st.session_state:
+        with st.spinner('Chargement de la grille'):
+            check_layout()
+            st.rerun()
 
 def show_logo(lines_id):
    path_logo = [os.path.join(IMAGES_FOLDER, "lines_icons", f"indices de ligne_svg_picto_ligne_{line_id}.svg") for line_id in lines_id]
