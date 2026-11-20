@@ -5,4 +5,4 @@ request
 os
 streamlit
 altair
-streamlit_js_eval
+streamlit-js-eval
