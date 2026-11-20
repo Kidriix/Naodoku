@@ -253,7 +253,7 @@ def bravo():
   ''')
   st.markdown(thanks_text)
   
-  st.image(st.session_state.transport_logos, width=max(30, int(np.floor(st.session_state.width/12))))
+  st.image(st.session_state.transport_logos, width=min(30, int(np.floor(st.session_state.width/12))))
   win_cols = st.columns(4)
   if win_cols[0].button("Nouvelle grille", key="new_grid_replay_win", type="primary"):
     launch_new_game()
@@ -276,7 +276,7 @@ def you_lose(end_type):
         col, row = cell_code[0], cell_code[1]
         st.markdown(f"**{add_line_emoji(st.session_state.grid[f"Criteria {col}"])}** et **{add_line_emoji(st.session_state.grid[f"Criteria {row}"])}**")
   st.markdown(thanks_text)
-  st.image(st.session_state.transport_logos, width=max(30, int(np.floor(st.session_state.width/12))))
+  st.image(st.session_state.transport_logos, width=min(30, int(np.floor(st.session_state.width/12))))
   
   lose_cols = st.columns(3)
   if lose_cols[0].button("Nouvelle grille", key="new_grid_replay_lose"):
@@ -468,7 +468,7 @@ if cols[3].button(errors_labels[2], key="3rd_error", disabled=True):
     pass
 
 for i in range(4):
-   cols[i].image(st.session_state.transport_logos[int(2*i):int(2*(i+1))],  width=max(50, int(np.floor(st.session_state.width/10))))
+   cols[i].image(st.session_state.transport_logos[int(2*i):int(2*(i+1))],  width=min(50, int(np.floor(st.session_state.width/10))))
 
 def switch_to_endgame_mode():
     st.session_state.end_game = True
