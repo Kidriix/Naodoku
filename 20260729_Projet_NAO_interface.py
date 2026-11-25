@@ -160,7 +160,7 @@ def select_station(cell_id):
     st.markdown(f"Sélectionner un arrêt vérifiant **{add_line_emoji(crit_col)}** et **{add_line_emoji(crit_row)}**")
     if len(st.session_state.remaining_answers[col+row]) <= 5:
         hint_expander = st.expander(f"Utiliser un indice ? ({st.session_state.nb_hints_left} restants)")
-        hint_tabs = hint_expander.tabs(["Première lettre", "Ligne", "QCM"])
+        hint_tabs = hint_expander.tabs(["Première lettre", "Ligne", "QCM", "Appel à un ami"])
         
         hint_tabs[0].markdown(''' 
             Première lettre et nombre de lettres de chacune des solutions :
@@ -203,7 +203,10 @@ def select_station(cell_id):
             for (i,station) in enumerate(st.session_state.hint_mcq_list):
                 with hint_tabs[2].container(border=True, key="hint3_container_"+col+row+str(i)):
                     st.markdown(station)
-        
+        hint_tabs[3].markdown(''' 
+        Appelez donc un ami (ça fait toujours plaisir) :)
+        ''')
+        hint_tabs[3].html('''<a href="tel:+33123456789"> Text </a>''', unsafe_allow_javascript=True)
     station = st.selectbox(label=f"{len(st.session_state.remaining_answers[col+row])} arrêts possibles", options=st.session_state.stations_options, key=col+row)
     stop_cols = st.columns(2)
     if stop_cols[0].button("Valider", type="primary", key=f"valider_{col+row}"):
