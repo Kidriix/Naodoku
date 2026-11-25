@@ -206,7 +206,8 @@ def select_station(cell_id):
         hint_tabs[3].markdown(''' 
         Appelez donc un ami (ça fait toujours plaisir) :)
         ''')
-        hint_tabs[3].html('''<a href="tel:+33123456789"> Text </a>''', unsafe_allow_javascript=True)
+        hint_tabs[3].html('''<a href="tel:+33123456789"> Petit coup de fil ? </a>''', unsafe_allow_javascript=True)
+        
     station = st.selectbox(label=f"{len(st.session_state.remaining_answers[col+row])} arrêts possibles", options=st.session_state.stations_options, key=col+row)
     stop_cols = st.columns(2)
     if stop_cols[0].button("Valider", type="primary", key=f"valider_{col+row}"):
